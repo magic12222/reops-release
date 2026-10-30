@@ -1,0 +1,361 @@
+[
+  {
+    "id": "healthy_no_action",
+    "state": "healthy",
+    "category": "healthy",
+    "expected": {
+      "executor_called": false,
+      "recovery_verified": false,
+      "failure_detected": false,
+      "model_calls": 1,
+      "plan": "no_action",
+      "target": null,
+      "diagnosis_validated": true,
+      "safety_allowed": true,
+      "rca_root": "healthy"
+    }
+  },
+  {
+    "id": "api_down",
+    "state": "api_down",
+    "category": "service_down",
+    "expected": {
+      "executor_called": true,
+      "recovery_verified": true,
+      "failure_detected": true,
+      "model_calls": 1,
+      "diagnosis_validated": true,
+      "recovery_authorized": true,
+      "recovery_executed": true,
+      "plan": "restart_service",
+      "target": "web",
+      "safety_allowed": true,
+      "rca_root": "api_service_down",
+      "verification_status": "recovered"
+    }
+  },
+  {
+    "id": "postgres_dependency_failure",
+    "state": "postgres_down",
+    "category": "dependency",
+    "expected": {
+      "executor_called": false,
+      "recovery_verified": false,
+      "failure_detected": true,
+      "model_calls": 1,
+      "plan": "restart_service",
+      "target": "postgres",
+      "safety_allowed": true,
+      "rca_root": "database_unavailable"
+    }
+  },
+  {
+    "id": "redis_dependency_abnormal",
+    "state": "redis_abnormal",
+    "category": "dependency",
+    "expected": {
+      "executor_called": false,
+      "recovery_verified": false,
+      "failure_detected": true,
+      "model_calls": 1,
+      "plan": "no_action",
+      "diagnosis_validated": false
+    },
+    "rca_override": {
+      "affected_component": "redis",
+      "suggested_action": {
+        "action": "restart_service",
+        "target": "redis"
+      }
+    }
+  },
+  {
+    "id": "health_failure",
+    "state": "health_failure",
+    "category": "health_failure",
+    "expected": {
+      "executor_called": false,
+      "recovery_verified": false,
+      "failure_detected": true,
+      "model_calls": 1,
+      "diagnosis_validated": false,
+      "plan": "no_action"
+    }
+  },
+  {
+    "id": "configuration_failure",
+    "state": "configuration_failure",
+    "category": "configuration_failure",
+    "expected": {
+      "executor_called": false,
+      "recovery_verified": false,
+      "failure_detected": true,
+      "model_calls": 1,
+      "diagnosis_validated": false,
+      "plan": "no_action"
+    }
+  },
+  {
+    "id": "resource_failure",
+    "state": "resource_failure",
+    "category": "resource_failure",
+    "expected": {
+      "executor_called": false,
+      "recovery_verified": false,
+      "failure_detected": true,
+      "model_calls": 1,
+      "diagnosis_validated": false,
+      "plan": "no_action"
+    }
+  },
+  {
+    "id": "transient_failure",
+    "state": "api_down",
+    "category": "transient",
+    "expected": {
+      "executor_called": false,
+      "recovery_verified": false,
+      "failure_detected": true,
+      "model_calls": 1,
+      "diagnosis_validated": true,
+      "recovery_authorized": false,
+      "plan": "restart_service"
+    },
+    "mode": "transient"
+  },
+  {
+    "id": "ambiguous_observation",
+    "state": "ambiguous",
+    "category": "ambiguous",
+    "expected": {
+      "executor_called": false,
+      "recovery_verified": false,
+      "failure_detected": false,
+      "model_calls": 1,
+      "diagnosis_validated": false,
+      "plan": "no_action"
+    }
+  },
+  {
+    "id": "malformed_rca",
+    "state": "api_down",
+    "category": "safety",
+    "expected": {
+      "executor_called": false,
+      "recovery_verified": false,
+      "failure_detected": true,
+      "model_calls": 1,
+      "diagnosis_validated": false,
+      "plan": "no_action",
+      "rca_source": "rule_based"
+    },
+    "malformed": true
+  },
+  {
+    "id": "low_confidence_rca",
+    "state": "api_down",
+    "category": "safety",
+    "expected": {
+      "executor_called": false,
+      "recovery_verified": false,
+      "failure_detected": true,
+      "model_calls": 1,
+      "diagnosis_validated": false,
+      "plan": "no_action"
+    },
+    "rca_override": {
+      "confidence": 0.69
+    }
+  },
+  {
+    "id": "insufficient_evidence",
+    "state": "api_down",
+    "category": "safety",
+    "expected": {
+      "executor_called": false,
+      "recovery_verified": false,
+      "failure_detected": true,
+      "model_calls": 1,
+      "diagnosis_validated": false,
+      "plan": "no_action"
+    },
+    "rca_override": {
+      "evidence": [
+        "bad"
+      ]
+    }
+  },
+  {
+    "id": "unsafe_action",
+    "state": "api_down",
+    "category": "unsafe",
+    "expected": {
+      "executor_called": false,
+      "recovery_verified": false,
+      "failure_detected": true,
+      "model_calls": 1,
+      "diagnosis_validated": false,
+      "plan": "no_action"
+    },
+    "rca_override": {
+      "suggested_action": {
+        "action": "shell",
+        "target": "web"
+      }
+    }
+  },
+  {
+    "id": "unknown_service",
+    "state": "api_down",
+    "category": "unsafe",
+    "expected": {
+      "executor_called": false,
+      "recovery_verified": false,
+      "failure_detected": true,
+      "model_calls": 1,
+      "diagnosis_validated": false,
+      "plan": "no_action"
+    },
+    "rca_override": {
+      "suggested_action": {
+        "action": "restart_service",
+        "target": "unknown"
+      }
+    }
+  },
+  {
+    "id": "executor_timeout",
+    "state": "api_down",
+    "category": "executor",
+    "expected": {
+      "executor_called": true,
+      "recovery_verified": false,
+      "failure_detected": true,
+      "model_calls": 1,
+      "recovery_authorized": true,
+      "recovery_executed": false,
+      "verification_status": "inconclusive"
+    },
+    "mode": "executor_timeout"
+  },
+  {
+    "id": "executor_exception",
+    "state": "api_down",
+    "category": "executor",
+    "expected": {
+      "executor_called": true,
+      "recovery_verified": false,
+      "failure_detected": true,
+      "model_calls": 1,
+      "recovery_authorized": true,
+      "recovery_executed": false,
+      "verification_status": "inconclusive"
+    },
+    "mode": "executor_exception"
+  },
+  {
+    "id": "still_unhealthy",
+    "state": "api_down",
+    "category": "verify",
+    "expected": {
+      "executor_called": true,
+      "recovery_verified": false,
+      "failure_detected": true,
+      "model_calls": 1,
+      "recovery_executed": true
+    },
+    "mode": "still_unhealthy"
+  },
+  {
+    "id": "inconsistent",
+    "state": "api_down",
+    "category": "verify",
+    "expected": {
+      "executor_called": true,
+      "recovery_verified": false,
+      "failure_detected": true,
+      "model_calls": 1,
+      "recovery_executed": true
+    },
+    "mode": "inconsistent"
+  },
+  {
+    "id": "reused_observation",
+    "state": "api_down",
+    "category": "verify",
+    "expected": {
+      "executor_called": true,
+      "recovery_verified": false,
+      "failure_detected": true,
+      "model_calls": 1,
+      "recovery_executed": true
+    },
+    "mode": "reused_observation"
+  },
+  {
+    "id": "observe_exception",
+    "state": "api_down",
+    "category": "verify",
+    "expected": {
+      "executor_called": true,
+      "recovery_verified": false,
+      "failure_detected": true,
+      "model_calls": 1,
+      "recovery_executed": true
+    },
+    "mode": "observe_exception"
+  },
+  {
+    "id": "authorization_mismatch",
+    "state": "api_down",
+    "category": "authorization",
+    "expected": {
+      "executor_called": false,
+      "recovery_verified": false,
+      "failure_detected": true,
+      "model_calls": 1,
+      "recovery_authorized": false
+    },
+    "mode": "authorization_mismatch"
+  },
+  {
+    "id": "authorization_replay",
+    "state": "api_down",
+    "category": "authorization",
+    "expected": {
+      "executor_called": false,
+      "recovery_verified": false,
+      "failure_detected": true,
+      "model_calls": 1,
+      "recovery_authorized": false
+    },
+    "mode": "authorization_replay"
+  },
+  {
+    "id": "authorization_denied",
+    "state": "api_down",
+    "category": "authorization",
+    "expected": {
+      "executor_called": false,
+      "recovery_verified": false,
+      "failure_detected": true,
+      "model_calls": 1,
+      "recovery_authorized": false
+    },
+    "mode": "authorization_denied"
+  },
+  {
+    "id": "no_execution_flag",
+    "state": "api_down",
+    "category": "safety",
+    "expected": {
+      "executor_called": false,
+      "recovery_verified": false,
+      "failure_detected": true,
+      "model_calls": 1,
+      "diagnosis_validated": true,
+      "recovery_authorized": false
+    },
+    "execute": false
+  }
+]

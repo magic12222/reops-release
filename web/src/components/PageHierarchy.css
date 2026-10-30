@@ -1,0 +1,23 @@
+/* Semantic page titles retain the existing section typography. */
+.section-heading h1 {
+  font-size: clamp(40px, 4.6vw, 68px);
+  line-height: 1.1;
+  font-weight: 500;
+  letter-spacing: -.055em;
+}
+.section-heading h1 > span { color: var(--muted); }
+.architecture .section-heading h1 { font-size: clamp(36px, 3.4vw, 54px); line-height: 1.08; }
+.live-recovery, .simulation-recovery { padding-top: 56px; }
+.live-recovery .section-label, .simulation-recovery .section-label { margin-bottom: 20px; }
+.section-heading.page-intro { align-items: flex-start; margin-bottom: 32px; }
+.page-intro h1 { font-size: clamp(32px, 3.4vw, 48px); }
+.page-intro p { max-width: 420px; padding-bottom: 0; }
+.page-cross-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 13px; }
+
+@media (max-width: 760px) {
+  .section-heading h1 { font-size: clamp(37px, 9vw, 55px); }
+  .architecture .section-heading h1 { font-size: clamp(36px, 3.4vw, 54px); }
+  .live-recovery, .simulation-recovery { padding-top: 32px; }
+  .section-heading.page-intro { gap: 16px; margin-bottom: 24px; }
+  .page-intro h1 { font-size: 32px; }
+}

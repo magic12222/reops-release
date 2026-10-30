@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0",
+  "diagnosis_id": "diag-001",
+  "incident_id": "incident-001",
+  "trace_id": "trace-001",
+  "case_id": "case-postgres-down-001",
+  "observation_id": "obs-001",
+  "timestamp": "2026-10-01T20:30:03+08:00",
+  "failure_detected": true,
+  "failed_component": "postgres",
+  "failed_step": "database_query",
+  "failure_type": "service_failure",
+  "root_cause": "postgres_service_down",
+  "evidence": [
+    "GET /users returned HTTP 500",
+    "API log contains connection refused: postgres:5432",
+    "postgres service health is unhealthy"
+  ],
+  "confidence": 0.94
+}

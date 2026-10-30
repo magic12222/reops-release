@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://reops.local/schemas/recovery_action.schema.json",
+  "title": "ReOps Recovery Action",
+  "type": "object",
+  "required": [
+    "schema_version", "action_id", "incident_id", "trace_id", "diagnosis_id",
+    "timestamp", "action", "target", "reason", "expected_success",
+    "estimated_cost", "risk", "requires_approval", "parameters"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "action_id": {"type": "string", "minLength": 1},
+    "incident_id": {"type": "string", "minLength": 1},
+    "trace_id": {"type": "string", "minLength": 1},
+    "case_id": {"type": ["string", "null"]},
+    "diagnosis_id": {"type": "string", "minLength": 1},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "action": {
+      "type": "string",
+      "enum": [
+        "continue", "retry", "restart_service", "start_service", "stop_service",
+        "rollback", "reconfigure", "replan", "human_escalation", "no_action"
+      ]
+    },
+    "target": {"type": ["string", "null"]},
+    "reason": {"type": "string", "minLength": 1},
+    "expected_success": {"type": "number", "minimum": 0, "maximum": 1},
+    "estimated_cost": {"type": "number", "minimum": 0, "maximum": 1},
+    "risk": {"type": "number", "minimum": 0, "maximum": 1},
+    "requires_approval": {"type": "boolean"},
+    "parameters": {
+      "type": "object",
+      "not": {
+        "anyOf": [
+          {"required": ["command"]},
+          {"required": ["shell"]},
+          {"required": ["script"]}
+        ]
+      },
+      "additionalProperties": true
+    }
+  },
+  "not": {
+    "anyOf": [
+      {"required": ["command"]},
+      {"required": ["shell"]},
+      {"required": ["script"]}
+    ]
+  },
+  "additionalProperties": true
+}

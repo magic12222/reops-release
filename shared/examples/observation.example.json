@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "observation_id": "obs-001",
+  "incident_id": "incident-001",
+  "trace_id": "trace-001",
+  "case_id": "case-postgres-down-001",
+  "timestamp": "2026-10-01T20:30:00+08:00",
+  "system": {
+    "name": "reops-demo",
+    "environment": "docker-local"
+  },
+  "request": {
+    "method": "GET",
+    "endpoint": "/users",
+    "status_code": 500,
+    "latency_ms": 1240
+  },
+  "services": {
+    "api": {"status": "healthy", "latency_ms": 20, "message": null},
+    "postgres": {
+      "status": "unhealthy",
+      "latency_ms": null,
+      "message": "connection refused"
+    }
+  },
+  "logs": [
+    {
+      "source": "api",
+      "level": "ERROR",
+      "timestamp": "2026-10-01T20:29:58+08:00",
+      "message": "connection refused: postgres:5432"
+    }
+  ],
+  "metrics": {
+    "api_cpu_percent": 14.2,
+    "api_memory_mb": 182,
+    "postgres_up": 0
+  }
+}

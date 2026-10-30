@@ -1,0 +1,459 @@
+[
+  {
+    "id": "start_then_restart",
+    "state": "api_down",
+    "signals": {},
+    "effects": {
+      "restart_web": {
+        "services": {
+          "api": "healthy",
+          "postgres": "healthy",
+          "redis": "healthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 1,
+          "redis_up": 1
+        },
+        "business_status": 200
+      }
+    },
+    "suggestions": [
+      [
+        "start_service",
+        "web"
+      ],
+      [
+        "restart_service",
+        "web"
+      ]
+    ],
+    "max_attempts": 3,
+    "expected": {
+      "rule_based": {
+        "strategy": "restart_web",
+        "strategy_sequence": [
+          "start_web",
+          "restart_web"
+        ],
+        "recovered": true,
+        "attempt_count": 2,
+        "fixture_action_count": 2,
+        "final_status": "recovered"
+      },
+      "llm_only": {
+        "strategy": "restart_web",
+        "strategy_sequence": [
+          "start_web",
+          "restart_web"
+        ],
+        "recovered": true,
+        "attempt_count": 2,
+        "fixture_action_count": 2,
+        "final_status": "recovered"
+      },
+      "reops": {
+        "strategy": "restart_web",
+        "strategy_sequence": [
+          "start_web",
+          "restart_web"
+        ],
+        "recovered": true,
+        "attempt_count": 2,
+        "fixture_action_count": 2,
+        "final_status": "recovered"
+      },
+      "reops_without_memory": {
+        "strategy": "restart_web",
+        "strategy_sequence": [
+          "start_web",
+          "restart_web"
+        ],
+        "recovered": true,
+        "attempt_count": 2,
+        "fixture_action_count": 2,
+        "final_status": "recovered"
+      }
+    }
+  },
+  {
+    "id": "new_dependency_after_start",
+    "state": "api_down",
+    "signals": {},
+    "effects": {
+      "start_web": {
+        "services": {
+          "api": "healthy",
+          "postgres": "unhealthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 0
+        },
+        "business_status": 503
+      },
+      "restart_postgres": {
+        "services": {
+          "api": "healthy",
+          "postgres": "healthy",
+          "redis": "healthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 1,
+          "redis_up": 1
+        },
+        "business_status": 200
+      }
+    },
+    "suggestions": [
+      [
+        "start_service",
+        "web"
+      ],
+      [
+        "restart_service",
+        "postgres"
+      ]
+    ],
+    "max_attempts": 3,
+    "expected": {
+      "rule_based": {
+        "strategy": "restart_postgres",
+        "strategy_sequence": [
+          "start_web",
+          "restart_postgres"
+        ],
+        "recovered": true,
+        "attempt_count": 2,
+        "fixture_action_count": 2,
+        "final_status": "recovered"
+      },
+      "llm_only": {
+        "strategy": "restart_postgres",
+        "strategy_sequence": [
+          "start_web",
+          "restart_postgres"
+        ],
+        "recovered": true,
+        "attempt_count": 2,
+        "fixture_action_count": 2,
+        "final_status": "recovered"
+      },
+      "reops": {
+        "strategy": "restart_postgres",
+        "strategy_sequence": [
+          "start_web",
+          "restart_postgres"
+        ],
+        "recovered": true,
+        "attempt_count": 2,
+        "fixture_action_count": 2,
+        "final_status": "recovered"
+      },
+      "reops_without_memory": {
+        "strategy": "restart_postgres",
+        "strategy_sequence": [
+          "start_web",
+          "restart_postgres"
+        ],
+        "recovered": true,
+        "attempt_count": 2,
+        "fixture_action_count": 2,
+        "final_status": "recovered"
+      }
+    }
+  },
+  {
+    "id": "config_then_restart",
+    "state": "health_failure",
+    "signals": {
+      "database_profile": "bad_password"
+    },
+    "effects": {
+      "restart_web": {
+        "services": {
+          "api": "healthy",
+          "postgres": "healthy",
+          "redis": "healthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 1,
+          "redis_up": 1
+        },
+        "business_status": 200
+      }
+    },
+    "suggestions": [
+      [
+        "reconfigure",
+        "api"
+      ],
+      [
+        "restart_service",
+        "web"
+      ]
+    ],
+    "max_attempts": 3,
+    "expected": {
+      "rule_based": {
+        "strategy": "restart_web",
+        "strategy_sequence": [
+          "restore_db_profile",
+          "restart_web"
+        ],
+        "recovered": true,
+        "attempt_count": 2,
+        "fixture_action_count": 2,
+        "final_status": "recovered"
+      },
+      "llm_only": {
+        "strategy": "restart_web",
+        "strategy_sequence": [
+          "restore_db_profile",
+          "restart_web"
+        ],
+        "recovered": true,
+        "attempt_count": 2,
+        "fixture_action_count": 2,
+        "final_status": "recovered"
+      },
+      "reops": {
+        "strategy": "restart_web",
+        "strategy_sequence": [
+          "restore_db_profile",
+          "restart_web"
+        ],
+        "recovered": true,
+        "attempt_count": 2,
+        "fixture_action_count": 2,
+        "final_status": "recovered"
+      },
+      "reops_without_memory": {
+        "strategy": "restart_web",
+        "strategy_sequence": [
+          "restore_db_profile",
+          "restart_web"
+        ],
+        "recovered": true,
+        "attempt_count": 2,
+        "fixture_action_count": 2,
+        "final_status": "recovered"
+      }
+    }
+  },
+  {
+    "id": "transient_then_restart",
+    "state": "health_failure",
+    "signals": {
+      "transient": true
+    },
+    "effects": {
+      "restart_web": {
+        "services": {
+          "api": "healthy",
+          "postgres": "healthy",
+          "redis": "healthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 1,
+          "redis_up": 1
+        },
+        "business_status": 200
+      }
+    },
+    "suggestions": [
+      [
+        "retry",
+        "web"
+      ],
+      [
+        "restart_service",
+        "web"
+      ]
+    ],
+    "max_attempts": 3,
+    "expected": {
+      "rule_based": {
+        "strategy": "restart_web",
+        "strategy_sequence": [
+          "reobserve",
+          "restart_web"
+        ],
+        "recovered": true,
+        "attempt_count": 2,
+        "fixture_action_count": 2,
+        "final_status": "recovered"
+      },
+      "llm_only": {
+        "strategy": "restart_web",
+        "strategy_sequence": [
+          "reobserve",
+          "restart_web"
+        ],
+        "recovered": true,
+        "attempt_count": 2,
+        "fixture_action_count": 2,
+        "final_status": "recovered"
+      },
+      "reops": {
+        "strategy": "restart_web",
+        "strategy_sequence": [
+          "reobserve",
+          "restart_web"
+        ],
+        "recovered": true,
+        "attempt_count": 2,
+        "fixture_action_count": 2,
+        "final_status": "recovered"
+      },
+      "reops_without_memory": {
+        "strategy": "restart_web",
+        "strategy_sequence": [
+          "reobserve",
+          "restart_web"
+        ],
+        "recovered": true,
+        "attempt_count": 2,
+        "fixture_action_count": 2,
+        "final_status": "recovered"
+      }
+    }
+  },
+  {
+    "id": "exhausted_candidates",
+    "state": "api_down",
+    "signals": {},
+    "effects": {},
+    "suggestions": [
+      [
+        "start_service",
+        "web"
+      ],
+      [
+        "restart_service",
+        "web"
+      ],
+      [
+        "no_action",
+        null
+      ]
+    ],
+    "max_attempts": 3,
+    "expected": {
+      "rule_based": {
+        "strategy": "no_action",
+        "strategy_sequence": [
+          "start_web",
+          "restart_web",
+          "no_action"
+        ],
+        "recovered": false,
+        "attempt_count": 3,
+        "fixture_action_count": 2,
+        "final_status": "no_safe_candidate"
+      },
+      "llm_only": {
+        "strategy": "no_action",
+        "strategy_sequence": [
+          "start_web",
+          "restart_web",
+          "no_action"
+        ],
+        "recovered": false,
+        "attempt_count": 3,
+        "fixture_action_count": 2,
+        "final_status": "no_safe_candidate"
+      },
+      "reops": {
+        "strategy": "no_action",
+        "strategy_sequence": [
+          "start_web",
+          "restart_web",
+          "no_action"
+        ],
+        "recovered": false,
+        "attempt_count": 3,
+        "fixture_action_count": 2,
+        "final_status": "no_safe_candidate"
+      },
+      "reops_without_memory": {
+        "strategy": "no_action",
+        "strategy_sequence": [
+          "start_web",
+          "restart_web",
+          "no_action"
+        ],
+        "recovered": false,
+        "attempt_count": 3,
+        "fixture_action_count": 2,
+        "final_status": "no_safe_candidate"
+      }
+    }
+  },
+  {
+    "id": "attempt_budget_exhausted",
+    "state": "api_down",
+    "signals": {},
+    "effects": {},
+    "suggestions": [
+      [
+        "start_service",
+        "web"
+      ],
+      [
+        "restart_service",
+        "web"
+      ]
+    ],
+    "max_attempts": 2,
+    "expected": {
+      "rule_based": {
+        "strategy": "restart_web",
+        "strategy_sequence": [
+          "start_web",
+          "restart_web"
+        ],
+        "recovered": false,
+        "attempt_count": 2,
+        "fixture_action_count": 2,
+        "final_status": "max_attempts_reached"
+      },
+      "llm_only": {
+        "strategy": "restart_web",
+        "strategy_sequence": [
+          "start_web",
+          "restart_web"
+        ],
+        "recovered": false,
+        "attempt_count": 2,
+        "fixture_action_count": 2,
+        "final_status": "max_attempts_reached"
+      },
+      "reops": {
+        "strategy": "restart_web",
+        "strategy_sequence": [
+          "start_web",
+          "restart_web"
+        ],
+        "recovered": false,
+        "attempt_count": 2,
+        "fixture_action_count": 2,
+        "final_status": "max_attempts_reached"
+      },
+      "reops_without_memory": {
+        "strategy": "restart_web",
+        "strategy_sequence": [
+          "start_web",
+          "restart_web"
+        ],
+        "recovered": false,
+        "attempt_count": 2,
+        "fixture_action_count": 2,
+        "final_status": "max_attempts_reached"
+      }
+    }
+  }
+]

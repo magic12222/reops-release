@@ -1,0 +1,50 @@
+name: reops-vikunja-demo
+services:
+  app:
+    image: ${REOPS_VIKUNJA_IMAGE:?Run scripts.prepare_vikunja_demo first}
+    restart: "no"
+    environment:
+      VIKUNJA_SERVICE_PUBLICURL: http://127.0.0.1:18110/
+      VIKUNJA_SERVICE_SECRET: ${REOPS_VIKUNJA_SERVICE_SECRET:?Process memory only}
+      VIKUNJA_DATABASE_TYPE: postgres
+      VIKUNJA_DATABASE_HOST: postgres
+      VIKUNJA_DATABASE_USER: reops_demo
+      VIKUNJA_DATABASE_PASSWORD: ${REOPS_VIKUNJA_DB_PASSWORD:?Process memory only}
+      VIKUNJA_DATABASE_DATABASE: reops_vikunja_demo
+      VIKUNJA_DATABASE_SSLMODE: disable
+      VIKUNJA_SERVICE_ENABLEREGISTRATION: "true"
+      VIKUNJA_MAILER_ENABLED: "false"
+      VIKUNJA_LOG_DATABASE: "off"
+      VIKUNJA_LOG_HTTP: "off"
+    ports:
+      - "127.0.0.1:18110:3456"
+    volumes:
+      - demo_files:/app/vikunja/files
+    networks: [entry, database]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    mem_limit: 768m
+  postgres:
+    image: ${REOPS_VIKUNJA_POSTGRES_IMAGE:?Run scripts.prepare_vikunja_demo first}
+    restart: "no"
+    environment:
+      POSTGRES_USER: reops_demo
+      POSTGRES_DB: reops_vikunja_demo
+      POSTGRES_PASSWORD: ${REOPS_VIKUNJA_DB_PASSWORD:?Process memory only}
+    volumes:
+      - demo_pg:/var/lib/postgresql/data
+    networks: [database]
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "reops_demo", "-d", "reops_vikunja_demo"]
+      interval: 2s
+      timeout: 2s
+      retries: 30
+    mem_limit: 512m
+networks:
+  entry: {}
+  database:
+    internal: true
+volumes:
+  demo_files: {}
+  demo_pg: {}

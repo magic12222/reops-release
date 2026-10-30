@@ -1,0 +1,53 @@
+name: reops-lab
+services:
+  postgres:
+    image: ${REOPS_IMAGE_PREFIX:-}postgres:16-alpine
+    environment:
+      POSTGRES_DB: reops
+      POSTGRES_USER: reops
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./target_system/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: [CMD-SHELL, 'pg_isready -U reops -d reops']
+      interval: 3s
+      timeout: 2s
+      retries: 20
+    restart: "no"
+  redis:
+    image: ${REOPS_IMAGE_PREFIX:-}redis:7-alpine
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 3s
+      timeout: 2s
+      retries: 20
+    restart: "no"
+  api:
+    build:
+      context: .
+      dockerfile: infra/docker/Dockerfile
+      args:
+        PYTHON_IMAGE: ${REOPS_IMAGE_PREFIX:-}python:3.12-slim
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_DB: reops
+      POSTGRES_USER: reops
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+      REDIS_HOST: redis
+      REOPS_DB_PROFILE: ${REOPS_DB_PROFILE:-normal}
+    ports:
+      - "127.0.0.1:18000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=6)"]
+      interval: 5s
+      timeout: 7s
+      retries: 3
+    restart: "no"
+volumes:
+  postgres-data:

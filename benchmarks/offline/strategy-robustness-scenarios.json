@@ -1,0 +1,311 @@
+[
+  {
+    "id": "low_confidence",
+    "state": "api_down",
+    "effects": {
+      "start_web": {
+        "services": {
+          "api": "healthy",
+          "postgres": "healthy",
+          "redis": "healthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 1,
+          "redis_up": 1
+        },
+        "business_status": 200
+      }
+    },
+    "expected": {
+      "rule_based": {
+        "strategy": "start_web",
+        "recovered": true
+      },
+      "llm_only": {
+        "strategy": "no_action",
+        "recovered": false
+      },
+      "reops": {
+        "strategy": "start_web",
+        "recovered": true
+      },
+      "reops_without_memory": {
+        "strategy": "start_web",
+        "recovered": true
+      }
+    },
+    "suggestion": [
+      "restart_service",
+      "web"
+    ],
+    "confidence": 0.69
+  },
+  {
+    "id": "wrong_component",
+    "state": "api_down",
+    "effects": {
+      "start_web": {
+        "services": {
+          "api": "healthy",
+          "postgres": "healthy",
+          "redis": "healthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 1,
+          "redis_up": 1
+        },
+        "business_status": 200
+      }
+    },
+    "expected": {
+      "rule_based": {
+        "strategy": "start_web",
+        "recovered": true
+      },
+      "llm_only": {
+        "strategy": "no_action",
+        "recovered": false
+      },
+      "reops": {
+        "strategy": "start_web",
+        "recovered": true
+      },
+      "reops_without_memory": {
+        "strategy": "start_web",
+        "recovered": true
+      }
+    },
+    "suggestion": [
+      "restart_service",
+      "web"
+    ],
+    "affected_component": "postgres"
+  },
+  {
+    "id": "contradictory_evidence",
+    "state": "api_down",
+    "effects": {
+      "start_web": {
+        "services": {
+          "api": "healthy",
+          "postgres": "healthy",
+          "redis": "healthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 1,
+          "redis_up": 1
+        },
+        "business_status": 200
+      }
+    },
+    "expected": {
+      "rule_based": {
+        "strategy": "start_web",
+        "recovered": true
+      },
+      "llm_only": {
+        "strategy": "no_action",
+        "recovered": false
+      },
+      "reops": {
+        "strategy": "start_web",
+        "recovered": true
+      },
+      "reops_without_memory": {
+        "strategy": "start_web",
+        "recovered": true
+      }
+    },
+    "suggestion": [
+      "restart_service",
+      "web"
+    ],
+    "evidence": [
+      "api_up=1 but the service is stopped"
+    ]
+  },
+  {
+    "id": "memory_replay",
+    "state": "api_down",
+    "effects": {
+      "restart_web": {
+        "services": {
+          "api": "healthy",
+          "postgres": "healthy",
+          "redis": "healthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 1,
+          "redis_up": 1
+        },
+        "business_status": 200
+      }
+    },
+    "expected": {
+      "rule_based": {
+        "strategy": "start_web",
+        "recovered": false
+      },
+      "llm_only": {
+        "strategy": "start_web",
+        "recovered": false
+      },
+      "reops": {
+        "strategy": "restart_web",
+        "recovered": true
+      },
+      "reops_without_memory": {
+        "strategy": "start_web",
+        "recovered": false
+      }
+    },
+    "memory_seed": "failed_start",
+    "suggestion": [
+      "start_service",
+      "web"
+    ],
+    "memory_transform": "replay"
+  },
+  {
+    "id": "memory_conflict",
+    "state": "api_down",
+    "effects": {
+      "restart_web": {
+        "services": {
+          "api": "healthy",
+          "postgres": "healthy",
+          "redis": "healthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 1,
+          "redis_up": 1
+        },
+        "business_status": 200
+      }
+    },
+    "expected": {
+      "rule_based": {
+        "strategy": "start_web",
+        "recovered": false
+      },
+      "llm_only": {
+        "strategy": "start_web",
+        "recovered": false
+      },
+      "reops": {
+        "strategy": "start_web",
+        "recovered": false,
+        "memory_evidence_count": 0
+      },
+      "reops_without_memory": {
+        "strategy": "start_web",
+        "recovered": false
+      }
+    },
+    "memory_seed": "failed_start",
+    "suggestion": [
+      "start_service",
+      "web"
+    ],
+    "memory_transform": "conflict"
+  },
+  {
+    "id": "memory_changed_context",
+    "state": "api_down",
+    "effects": {
+      "restart_web": {
+        "services": {
+          "api": "healthy",
+          "postgres": "healthy",
+          "redis": "healthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 1,
+          "redis_up": 1
+        },
+        "business_status": 200
+      }
+    },
+    "expected": {
+      "rule_based": {
+        "strategy": "start_web",
+        "recovered": false
+      },
+      "llm_only": {
+        "strategy": "start_web",
+        "recovered": false
+      },
+      "reops": {
+        "strategy": "start_web",
+        "recovered": false,
+        "memory_evidence_count": 0
+      },
+      "reops_without_memory": {
+        "strategy": "start_web",
+        "recovered": false
+      }
+    },
+    "memory_seed": "failed_start",
+    "suggestion": [
+      "start_service",
+      "web"
+    ],
+    "memory_transform": "changed_context"
+  },
+  {
+    "id": "partial_recovery",
+    "state": "api_down",
+    "effects": {
+      "start_web": {
+        "services": {
+          "api": "healthy",
+          "postgres": "healthy",
+          "redis": "healthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 1,
+          "redis_up": 1
+        },
+        "business_status": 503
+      },
+      "restart_web": {
+        "services": {
+          "api": "healthy",
+          "postgres": "healthy",
+          "redis": "healthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 1,
+          "redis_up": 1
+        },
+        "business_status": 503
+      }
+    },
+    "expected": {
+      "rule_based": {
+        "strategy": "start_web",
+        "recovered": false
+      },
+      "llm_only": {
+        "strategy": "restart_web",
+        "recovered": false
+      },
+      "reops": {
+        "strategy": "start_web",
+        "recovered": false
+      },
+      "reops_without_memory": {
+        "strategy": "start_web",
+        "recovered": false
+      }
+    }
+  }
+]

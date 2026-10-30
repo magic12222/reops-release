@@ -1,0 +1,12 @@
+{
+  "images": {
+    "app": {
+      "tag": "ghcr.io/go-vikunja/vikunja:2.7.1",
+      "digest": "ghcr.io/go-vikunja/vikunja@sha256:62964f7ab5e1cb83a377b5cf94941e1c9cb69ecd24c5132bd1e8f651f233b96a"
+    },
+    "postgres": {
+      "tag": "postgres:16-alpine",
+      "digest": "postgres@sha256:721873c34ceb9f8d8fc265984940dc982404c105f19ad51be9fdc5970a6080ea"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+.footer.footer-compact { padding-top: 40px; }
+.footer-compact .footer-bottom { margin-top: 0; }
+
+/* Preserve Overview's original CTA-to-brand spacing after separating the regions. */
+.overview-closing-cta { padding-bottom: 110px; }
+#main:has(.overview-closing-cta) + .footer-compact { padding-top: 0; border-top: 0; }
+
+@media (max-width: 760px) {
+  .footer.footer-compact { padding-top: 32px; }
+  .overview-closing-cta { padding-bottom: 75px; }
+}

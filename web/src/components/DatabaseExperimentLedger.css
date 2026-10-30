@@ -1,0 +1,10 @@
+.database-comparison { margin: 24px 0 32px; }
+.database-comparison-scroll { overflow-x: auto; }
+.database-comparison table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 14px; text-align: left; }
+.database-comparison th { font-weight: 500; color: var(--text-secondary, #a2aab5); }
+.database-comparison th, .database-comparison td { padding: 12px 12px 12px 0; border-bottom: 1px solid rgba(255,255,255,.1); }
+.database-comparison td { color: var(--text-primary, #e8edf4); }
+.database-comparison + .experiment-record { border-top: 0; }
+.database-ledger details { margin-top: 18px; }
+.database-ledger details p { overflow-wrap: anywhere; line-height: 1.7; }
+.database-ledger pre { max-height: 340px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; font: 12px/1.7 var(--mono); padding: 14px; background: #080d13; }

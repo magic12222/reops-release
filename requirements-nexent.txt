@@ -1,0 +1,2 @@
+# 可选真实 RCA 依赖；官方 SDK 固定到已核对接口的提交，不影响默认离线测试。
+nexent @ git+https://github.com/ModelEngine-Group/nexent.git@1d089e1ca47bea838860c141845b6cd4e6f205c2#subdirectory=sdk

@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://reops.local/schemas/observation.schema.json",
+  "title": "ReOps Observation",
+  "type": "object",
+  "required": [
+    "schema_version", "observation_id", "incident_id", "trace_id",
+    "timestamp", "system", "services", "request", "logs", "metrics"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "observation_id": {"type": "string", "minLength": 1},
+    "incident_id": {"type": "string", "minLength": 1},
+    "trace_id": {"type": "string", "minLength": 1},
+    "case_id": {"type": ["string", "null"]},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "system": {
+      "type": "object",
+      "required": ["name", "environment"],
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "environment": {"type": "string", "minLength": 1}
+      },
+      "additionalProperties": true
+    },
+    "request": {
+      "type": "object",
+      "properties": {
+        "method": {"type": ["string", "null"]},
+        "endpoint": {"type": ["string", "null"]},
+        "status_code": {"type": ["integer", "null"]},
+        "latency_ms": {"type": ["number", "null"], "minimum": 0}
+      },
+      "additionalProperties": true
+    },
+    "services": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": {
+        "type": "object",
+        "required": ["status"],
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["healthy", "degraded", "unhealthy", "unknown"]
+          },
+          "latency_ms": {"type": ["number", "null"], "minimum": 0},
+          "message": {"type": ["string", "null"]}
+        },
+        "additionalProperties": true
+      }
+    },
+    "logs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["source", "message"],
+        "properties": {
+          "source": {"type": "string", "minLength": 1},
+          "level": {"type": ["string", "null"]},
+          "timestamp": {"type": ["string", "null"], "format": "date-time"},
+          "message": {"type": "string"}
+        },
+        "additionalProperties": true
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": {"type": ["number", "string", "boolean", "null"]}
+    }
+  },
+  "additionalProperties": true
+}

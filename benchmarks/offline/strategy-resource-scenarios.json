@@ -1,0 +1,352 @@
+[
+  {
+    "id": "persistent_memory_pressure",
+    "state": "health_failure",
+    "signals": {
+      "resource_pressure": {
+        "component": "api",
+        "metric": "memory",
+        "persistent": true,
+        "samples": [
+          {
+            "sample_id": "pressure-1",
+            "value": 0.98
+          },
+          {
+            "sample_id": "pressure-2",
+            "value": 0.99
+          }
+        ]
+      }
+    },
+    "metrics": {
+      "api_memory_ratio": 0.99
+    },
+    "effects": {},
+    "suggestion": [
+      "restart_service",
+      "web"
+    ],
+    "expected": {
+      "rule_based": {
+        "strategy": "no_action",
+        "recovered": false
+      },
+      "llm_only": {
+        "strategy": "no_action",
+        "recovered": false
+      },
+      "reops": {
+        "strategy": "no_action",
+        "recovered": false
+      },
+      "reops_without_memory": {
+        "strategy": "no_action",
+        "recovered": false
+      }
+    }
+  },
+  {
+    "id": "persistent_cpu_pressure",
+    "state": "health_failure",
+    "signals": {
+      "resource_pressure": {
+        "component": "api",
+        "metric": "cpu",
+        "persistent": true,
+        "samples": [
+          {
+            "sample_id": "pressure-1",
+            "value": 0.98
+          },
+          {
+            "sample_id": "pressure-2",
+            "value": 0.99
+          }
+        ]
+      }
+    },
+    "metrics": {
+      "api_cpu_ratio": 0.99
+    },
+    "effects": {},
+    "suggestion": [
+      "restart_service",
+      "web"
+    ],
+    "expected": {
+      "rule_based": {
+        "strategy": "no_action",
+        "recovered": false
+      },
+      "llm_only": {
+        "strategy": "no_action",
+        "recovered": false
+      },
+      "reops": {
+        "strategy": "no_action",
+        "recovered": false
+      },
+      "reops_without_memory": {
+        "strategy": "no_action",
+        "recovered": false
+      }
+    }
+  },
+  {
+    "id": "single_resource_sample",
+    "state": "health_failure",
+    "signals": {
+      "resource_pressure": {
+        "component": "api",
+        "metric": "memory",
+        "persistent": true,
+        "samples": [
+          {
+            "sample_id": "pressure-1",
+            "value": 0.99
+          }
+        ]
+      }
+    },
+    "metrics": {
+      "api_memory_ratio": 0.99
+    },
+    "effects": {},
+    "suggestion": [
+      "retry",
+      "web"
+    ],
+    "expected": {
+      "rule_based": {
+        "strategy": "reobserve",
+        "recovered": false
+      },
+      "llm_only": {
+        "strategy": "reobserve",
+        "recovered": false
+      },
+      "reops": {
+        "strategy": "reobserve",
+        "recovered": false
+      },
+      "reops_without_memory": {
+        "strategy": "reobserve",
+        "recovered": false
+      }
+    }
+  },
+  {
+    "id": "conflicting_resource_samples",
+    "state": "health_failure",
+    "signals": {
+      "resource_pressure": {
+        "component": "api",
+        "metric": "memory",
+        "persistent": true,
+        "samples": [
+          {
+            "sample_id": "pressure-1",
+            "value": 0.98
+          },
+          {
+            "sample_id": "pressure-2",
+            "value": 0.2
+          }
+        ]
+      }
+    },
+    "metrics": {
+      "api_memory_ratio": 0.2
+    },
+    "effects": {},
+    "suggestion": [
+      "retry",
+      "web"
+    ],
+    "expected": {
+      "rule_based": {
+        "strategy": "reobserve",
+        "recovered": false
+      },
+      "llm_only": {
+        "strategy": "reobserve",
+        "recovered": false
+      },
+      "reops": {
+        "strategy": "reobserve",
+        "recovered": false
+      },
+      "reops_without_memory": {
+        "strategy": "reobserve",
+        "recovered": false
+      }
+    }
+  },
+  {
+    "id": "reused_resource_sample",
+    "state": "health_failure",
+    "signals": {
+      "resource_pressure": {
+        "component": "api",
+        "metric": "memory",
+        "persistent": true,
+        "samples": [
+          {
+            "sample_id": "pressure-same",
+            "value": 0.98
+          },
+          {
+            "sample_id": "pressure-same",
+            "value": 0.99
+          }
+        ]
+      }
+    },
+    "metrics": {
+      "api_memory_ratio": 0.99
+    },
+    "effects": {},
+    "suggestion": [
+      "retry",
+      "web"
+    ],
+    "expected": {
+      "rule_based": {
+        "strategy": "reobserve",
+        "recovered": false
+      },
+      "llm_only": {
+        "strategy": "reobserve",
+        "recovered": false
+      },
+      "reops": {
+        "strategy": "reobserve",
+        "recovered": false
+      },
+      "reops_without_memory": {
+        "strategy": "reobserve",
+        "recovered": false
+      }
+    }
+  },
+  {
+    "id": "transient_resource_pressure",
+    "state": "health_failure",
+    "signals": {
+      "resource_pressure": {
+        "component": "api",
+        "metric": "memory",
+        "persistent": true,
+        "samples": [
+          {
+            "sample_id": "pressure-1",
+            "value": 0.99
+          }
+        ]
+      }
+    },
+    "metrics": {
+      "api_memory_ratio": 0.99
+    },
+    "effects": {
+      "reobserve": {
+        "services": {
+          "api": "healthy",
+          "postgres": "healthy",
+          "redis": "healthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 1,
+          "redis_up": 1,
+          "api_memory_ratio": 0.2,
+          "api_cpu_ratio": 0.2
+        },
+        "business_status": 200,
+        "signals": {}
+      }
+    },
+    "suggestion": [
+      "retry",
+      "web"
+    ],
+    "expected": {
+      "rule_based": {
+        "strategy": "reobserve",
+        "recovered": true
+      },
+      "llm_only": {
+        "strategy": "reobserve",
+        "recovered": true
+      },
+      "reops": {
+        "strategy": "reobserve",
+        "recovered": true
+      },
+      "reops_without_memory": {
+        "strategy": "reobserve",
+        "recovered": true
+      }
+    }
+  },
+  {
+    "id": "business_recovers_pressure_persists",
+    "state": "health_failure",
+    "signals": {
+      "resource_pressure": {
+        "component": "api",
+        "metric": "memory",
+        "persistent": true,
+        "samples": [
+          {
+            "sample_id": "pressure-1",
+            "value": 0.99
+          }
+        ]
+      }
+    },
+    "metrics": {
+      "api_memory_ratio": 0.99
+    },
+    "effects": {
+      "reobserve": {
+        "services": {
+          "api": "healthy",
+          "postgres": "healthy",
+          "redis": "healthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 1,
+          "redis_up": 1,
+          "api_memory_ratio": 0.99,
+          "api_cpu_ratio": 0.2
+        },
+        "business_status": 200
+      }
+    },
+    "suggestion": [
+      "retry",
+      "web"
+    ],
+    "expected": {
+      "rule_based": {
+        "strategy": "reobserve",
+        "recovered": false
+      },
+      "llm_only": {
+        "strategy": "reobserve",
+        "recovered": false
+      },
+      "reops": {
+        "strategy": "reobserve",
+        "recovered": false
+      },
+      "reops_without_memory": {
+        "strategy": "reobserve",
+        "recovered": false
+      }
+    }
+  }
+]

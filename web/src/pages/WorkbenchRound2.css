@@ -1,0 +1,157 @@
+/* Workbench only. Keep Execution and shared chrome independent. */
+.wb .wb-toolbar a { background: #14181d; color: #b6c5ce; border-color: #30363d; }
+.wb .wb-operations { padding: 20px 24px; border-bottom: 1px solid var(--wb-line); }
+.wb .wb-monitor-controls { padding: 0 0 16px; margin: 0; background: none; border: 0; border-radius: 0; gap: 12px; }
+.wb .wb-monitor-controls > div:first-child { align-items: center; }
+.wb .wb-monitor-controls strong { font-size: 17px; line-height: 1.5; }
+.wb .wb-monitor-controls small { margin: 0 0 4px; font: 9px var(--mono); letter-spacing: .07em; color: #94a5b2; }
+.wb .wb-monitor-facts { display: flex; flex-wrap: wrap; gap: 10px; margin-left: auto; font-size: 11px; }
+.wb .wb-monitor-facts .wb-state { display: inline-flex; gap: 7px; align-items: center; }
+.wb .wb-monitor-buttons { flex-wrap: wrap; }
+.wb .wb-monitor-controls .wb-business-observation { color: #94a5b2; font: 10px/1.6 var(--mono); margin: 0; }
+.wb .wb-monitor-integration { font-size: 11px; color: #94a5b2; }
+.wb .wb-monitor-integration summary { cursor: pointer; }
+.wb .wb-monitor-integration p { font-size: 11px; margin: 8px 0 0; }
+.wb .wb-recovery-unavailable { font-size: 11px; color: #91a2b0; border-top: 1px solid var(--wb-line); padding-top: 12px; }
+.wb .wb-recovery-controls { border: 0; border-top: 1px solid var(--wb-line); border-radius: 0; margin: 0; padding: 16px 0 0; background: none; font-size: 11px; }
+.wb .wb-recovery-heading { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.wb .wb-recovery-heading strong { font-size: 12px; font-weight: 500; color: #d4dce4; }
+.wb .wb-authorization-state { padding: 3px 9px; border: 1px solid #46515e; border-radius: 4px; color: #aab6c5; font-size: 11px; }
+.wb .wb-authorization-state.authorized { border-color: #4a6a5d; color: #b1d6c1; background: #1b2924; }
+.wb .wb-recovery-toolbar { gap: 10px 18px; color: #adbac7; padding: 10px 0; }
+.wb .wb-recovery-controls button { background: #1b252a; border-color: #41565d; min-height: 34px; font-size: 11px; }
+.wb .wb-recovery-toolbar button { margin-left: auto; }
+.wb .wb-policy-limits { display: flex; flex-wrap: wrap; gap: 4px 18px; color: #8f9eac; font-size: 10px; }
+.wb .wb-approval-details { border: 0; padding: 0; }
+.wb .wb-approval-details > summary, .wb .wb-advanced-demo > summary { font-size: 11px; color: #a3b3c2; }
+.wb .wb-recovery-summary { padding: 12px; background: #141c21; border-color: #2e4146; margin-top: 12px; }
+.wb .wb-recovery-summary-main p { font-size: 11px; }
+.wb .wb-recovery-controls p[role=alert] { color: #e6b2a9; }
+.wb .wb-local-browse { background: none; border-color: transparent; color: #95a5b3; margin-block: 7px; padding: 9px 10px; font-size: 11px; }
+.wb .wb-local-browse:hover, .wb .wb-local-browse[aria-pressed=true] { background: #1b2329; border-color: #303d44; }
+.wb .wb-local-browse strong { font-weight: 400; }
+.wb .wb-incident-list { gap: 3px; }
+.wb .wb-incident-list > button { padding: 12px 10px; }
+.wb .wb-incident-list > button.selected { border-color: #536669; background: #1e2a2e; }
+.wb .wb-incident-list > button.selected::before { left: -1px; top: 9px; bottom: 9px; border-radius: 2px; }
+.wb .wb-incident-list em.wb-history-result { display: block; margin-top: 3px; font-size: 10px; color: #a8b9c8; }
+.wb .wb-incident-list em.recovered { color: #a9d0b8; }
+.wb .wb-incident-list em.failed { color: #e3a7a8; }
+.wb .wb-history-title, .wb .wb-history-span { display: block; color: #8a99a9; font-size: 10px; line-height: 1.6; margin-top: 4px; }
+.wb .wb-history-title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 175px; }
+.wb .wb-history-more { margin: 0 20px 15px; color: #b5ccc9; border: 1px solid #35494d; border-radius: 4px; padding: 8px; font-size: 11px; }
+.wb .wb-history-context { color: #91a2b0; margin: 0; padding: 0 28px 12px; font-size: 10px; line-height: 1.7; }
+.wb .wb-evidence-chain > summary { padding: 15px 28px; color: #a8b8c5; cursor: pointer; font-size: 11px; border-bottom: 1px solid var(--wb-line); }
+.wb .wb-no-history { display: flex; align-items: center; flex-wrap: wrap; gap: 14px; padding: 28px; color: #9bacb9; }
+.wb .wb-no-history h2 { font-size: 15px; font-weight: 500; color: #d2dbe4; }
+.wb .wb-no-history p { font-size: 12px; margin-top: 7px; line-height: 1.7; }
+.wb .wb-no-history button { margin-left: auto; font-size: 11px; padding: 9px 12px; border: 1px solid #35494d; border-radius: 4px; }
+.wb .software-scope { display: block; background: none; border-left: 0; border-top: 1px solid #29363e; padding: 12px 0; margin: 12px 0; }
+.wb .software-scope summary { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.wb .software-scope summary::after { content: 'Details +'; margin-left: auto; color: #91a4b0; }
+.wb .software-scope[open] summary::after { content: 'Details −'; }
+.wb .software-scope p { margin: 9px 0 0; color: #91a4b0; }
+.wb .software-filters { gap: 3px; margin: 12px 0; }
+.wb .software-filters button { padding: 7px 8px; }
+.wb .software-filters button span { color: #8e9ca9; font: 9px var(--mono); margin-left: 4px; }
+.wb .software-list-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding-bottom: 12px; color: #91a4b0; font-size: 10px; }
+.wb .software-list-tools label { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+.wb .software-list-tools select { color: #bcc9d3; background: #141b21; border: 1px solid #34434e; border-radius: 4px; padding: 6px; font-size: 11px; max-width: 100%; }
+.wb .software-list-tools button { color: #b5ccc9; }
+.wb .software-directory td { padding-block: 10px; }
+.wb .software-directory th { position: sticky; top: 0; background: #11171c; z-index: 1; }
+@media (max-width: 1000px) {
+  .wb .wb-monitor-facts { margin-left: 0; }
+  .wb .wb-monitor-buttons { width: 100%; }
+}
+@media (max-width: 760px) {
+  .wb .wb-inspector { grid-template-columns: minmax(0,1fr); }
+  .wb .wb-inspector-section { min-width: 0; overflow-wrap: anywhere; }
+  .wb .wb-frame { display: flex; flex-direction: column; }
+  .wb .wb-workspace { display: contents; }
+  .wb .wb-context { order: 0; }
+  .wb .wb-operations { order: 1; }
+  .wb .wb-sidebar { order: 2; }
+  .wb .wb-workspace > :not(.wb-context):not(.wb-operations) { order: 3; }
+  .wb .wb-directory-open .wb-sidebar :is(.wb-incident-label,.wb-search,.wb-filters,.wb-incident-list,.wb-history-more,.wb-sidebar-bottom) { display: none; }
+  .wb .wb-operations { padding: 17px; }
+  .wb .wb-recovery-toolbar button { margin-left: 0; }
+  .wb .wb-history-context { padding-inline: 17px; }
+  .wb .wb-evidence-chain > summary { padding-inline: 17px; }
+  .wb .wb-history-title { max-width: 100%; }
+  .wb .wb-no-history { padding: 22px 17px; }
+  .wb .software-list-tools label { margin-left: 0; }
+  .wb .software-directory td { padding: 6px; }
+}
+@media (max-width: 480px) {
+  .wb .wb-incident-list { grid-template-columns: minmax(0,1fr); }
+}
+
+.wb .wb-operations .unified-monitor { margin: 0 0 16px; padding: 0; border: 0; border-radius: 0; background: none; }
+
+/* Final information hierarchy: source records remain in disclosures. */
+.wb .wb-detail-heading { padding-top:18px; padding-bottom:10px; }
+.wb .wb-detail-tools { padding-bottom:12px; }
+.wb .wb-focus { padding-top:12px; }
+.wb .chamber-space { height:142px; perspective:none; }
+.wb .chamber-plane { left:0; top:12px; width:100%; max-width:none; height:116px; padding:14px 18px; box-shadow:none; }
+.wb .chamber-plane[data-depth=focus] { transform:none; background:#192127; }
+.wb .chamber-plane:not([data-depth=focus]) { display:none; }
+.wb .chamber-plane h3 { font-size:20px; line-height:1.3; margin:6px 0; letter-spacing:-.025em; }
+.wb .chamber-fact { font-size:11px; line-height:1.65; overflow-wrap:anywhere; }
+.wb .chamber-ordinal { font-size:9px; }
+.wb .chamber-footer { padding:0 0 12px; gap:12px; }
+.wb .event-index { min-height:34px; }
+.wb .wb-evidence { min-height:0; padding-block:16px; }
+.wb .wb-key-evidence { display:flex; flex-wrap:wrap; gap:8px 20px; margin:12px 0; }
+.wb .wb-key-evidence>div { min-width:0; max-width:100%; }
+.wb .wb-key-evidence dt { font-size:10px; color:#91a4b2; margin-bottom:4px; }
+.wb .wb-key-evidence dd { font:10px/1.7 var(--mono); color:#c4d2dc; margin:0; overflow-wrap:anywhere; }
+.wb .wb-evidence details { margin-top:12px; font-size:11px; color:#a6bac6; }
+.wb .wb-evidence summary,.wb .wb-inspector summary,.wb-latest-recovery>summary { cursor:pointer; font-size:10px; line-height:1.8; color:#adbdc7; }
+.wb .wb-evidence details>p { margin:10px 0; line-height:1.8; overflow-wrap:anywhere; }
+.wb .wb-evidence code { overflow-wrap:anywhere; font-size:10px; }
+.wb .wb-inspector { padding-block:18px; }
+.wb .wb-inspector li { overflow-wrap:anywhere; }
+.wb .wb-inspector-section + .wb-inspector-section { margin-top:16px; padding-top:16px; }
+.wb .wb-inspector-section>details { margin-top:10px; }
+.wb .wb-target-context[open]>.wb-section-heading { margin-top:12px; }
+.wb .wb-memory-link>svg:first-child { margin-left:0; }
+.wb-latest-recovery { margin:0; }
+.wb .wb-recovery-controls:has(>.wb-latest-recovery) { border:0; padding-top:0; }
+@media(max-width:760px) { .wb .chamber-plane { height:128px; padding:12px; }.wb .chamber-space { height:152px; }.wb .chamber-plane h3 { font-size:18px; }.wb .wb-inspector { grid-template-columns:minmax(0,1fr); }.wb .wb-inspector-section + .wb-inspector-section { margin:0; padding:0; }.wb .wb-key-evidence { gap:10px; }.wb .wb-key-evidence>div { flex-basis:100%; } }
+
+/* Incident management first; full execution browsing is opt-in. */
+.wb .wb-incident-overview { padding:22px 28px; }
+.wb .wb-overview-verification { display:flex; gap:11px; align-items:flex-start; color:#a6c9c0; }
+.wb .wb-overview-verification h3 { margin:0 0 8px; color:#abbcc7; font-size:11px; font-weight:400; }
+.wb .wb-overview-verification strong { font-size:18px; font-weight:500; text-transform:capitalize; }
+.wb .wb-overview-verification span { margin-left:12px; color:#91a3b2; font-size:11px; }
+.wb .wb-incident-overview details { margin:15px 0 0; font-size:11px; line-height:1.8; color:#aabac7; }
+.wb .wb-incident-overview summary,.wb .wb-recorded-events > summary { cursor:pointer; }
+.wb .wb-incident-overview li,.wb .wb-incident-provenance p { overflow-wrap:anywhere; }
+.wb .wb-incident-provenance dl { display:grid; grid-template-columns:120px minmax(0,1fr); gap:8px 12px; margin-top:12px; }
+.wb .wb-incident-provenance dt { color:#8fa2b1; }.wb .wb-incident-provenance dd { margin:0; overflow-wrap:anywhere; }
+.wb .wb-recorded-events { border-block:1px solid var(--wb-line); }
+.wb .wb-recorded-events > summary { padding:15px 28px; color:#c2d1dc; font-size:12px; }
+.wb .wb-recorded-events > summary span { margin-left:12px; color:#8fa2b1; font-size:10px; }
+.wb .wb-recorded-event-content { padding:0 28px 20px; min-width:0; }
+.wb .wb-recorded-event-navigation { display:flex; align-items:flex-end; gap:12px; }
+.wb .wb-recorded-event-navigation label { flex:1; min-width:0; color:#a3b4c1; font-size:10px; }
+.wb .wb-recorded-event-navigation select { display:block; margin-top:7px; width:100%; color:#cfdae3; background:#141c23; border:1px solid #3a4a55; border-radius:4px; padding:9px; font-size:11px; }
+.wb .wb-recorded-event-navigation > div { display:flex; gap:6px; }
+.wb .wb-recorded-event-navigation button { display:grid; place-items:center; min-width:34px; min-height:34px; border:1px solid #3a4a55; border-radius:4px; color:#bfd3d7; }
+.wb .wb-recorded-event-navigation button:disabled { opacity:.4; }
+.wb .wb-recorded-event-meta { display:flex; flex-wrap:wrap; gap:12px; margin:14px 0; font-size:10px; color:#96a8b6; }
+.wb .wb-full-event { font-size:11px; color:#9fb4c0; line-height:1.8; }
+.wb .wb-full-event summary { cursor:pointer; }.wb .wb-full-event :is(p,code,li) { overflow-wrap:anywhere; }
+@media(max-width:760px) {
+  .wb .wb-incident-overview { padding:20px 17px; }
+  .wb .wb-recorded-events > summary { padding-inline:17px; }
+  .wb .wb-recorded-events > summary span { display:block; margin:6px 0 0 14px; }
+  .wb .wb-recorded-event-content { padding-inline:17px; }
+  .wb .wb-recorded-event-navigation { flex-wrap:wrap; }
+  .wb .wb-recorded-event-navigation label { flex-basis:100%; }
+  .wb .wb-incident-provenance dl { grid-template-columns:minmax(0,1fr); gap:3px; }
+  .wb .wb-incident-provenance dt:not(:first-child) { margin-top:9px; }
+}

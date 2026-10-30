@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0",
+  "result_id": "result-001",
+  "incident_id": "incident-001",
+  "trace_id": "trace-001",
+  "case_id": "case-postgres-down-001",
+  "action_id": "act-001",
+  "timestamp": "2026-10-01T20:30:09+08:00",
+  "execution_status": "succeeded",
+  "exit_code": 0,
+  "stdout": "service postgres restarted",
+  "stderr": "",
+  "duration_ms": 3120,
+  "post_observation_id": "obs-002",
+  "verification": {
+    "status": "recovered",
+    "checked_at": "2026-10-01T20:30:09+08:00",
+    "health_check_passed": true,
+    "fault_cleared": true,
+    "business_request_passed": true,
+    "evidence": [
+      "postgres service health is healthy",
+      "GET /users returned HTTP 200"
+    ]
+  }
+}

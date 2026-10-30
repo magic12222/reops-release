@@ -1,0 +1,93 @@
+/* FE-P3: confined to Architecture; Hero and shared sections retain their styles. */
+@layer base, layout, components, responsive;
+@layer responsive {
+  .architecture { padding-block: 88px 96px; }
+  .architecture .section-label { margin-bottom: 24px; }
+  .architecture .section-heading { margin-bottom: 32px; }
+  .architecture .section-heading p { font-size: 14px; color: #b0bccb; }
+  .architecture .architecture-grid { grid-template-columns: minmax(0, .52fr) minmax(0, 1.48fr); gap: 56px; align-items: start; }
+  .architecture .layer-list { flex-direction: column; gap: 0; }
+  .architecture .layer-tab { padding: 26px 12px 26px 0; gap: 22px; border-radius: 0; transition: color .18s, background .18s; }
+  .architecture .layer-tab:hover { color: #d8e1eb; background: #ffffff03; }
+  .architecture .layer-tab.active { color: #f3f5f7; }
+  .architecture .layer-tab.active .layer-number { color: #88d9e8; }
+  .architecture .layer-tab small { font-size: 10px; color: #a5b4c4; }
+  .architecture .layer-tab h3 { font-size: 34px; line-height: 1.15; }
+  .architecture .layer-state { font-size: 12px; line-height: 1.65; color: #afbdce; margin-top: 10px; }
+  .architecture .layer-tab.active .layer-state { color: #d0dbe8; }
+  .architecture .layer-tab > svg { display: block; color: #8295a7; }
+  .architecture .layer-tab.active > svg { color: #88d9e8; }
+  .architecture .layer-panel { overflow: visible; min-width: 0; border-color: #354150; background: #0b1016; }
+  .architecture .panel-topline { font-size: 10px; line-height: 16px; color: #aebed0; padding: 14px 20px; gap: 12px; }
+  .architecture .arch-view { padding-top: 22px; background-image: radial-gradient(#43536660 .65px, transparent .65px); background-size: 18px 18px; animation: architecture-view-in .18s ease-out; }
+  .architecture .schema-head { padding-inline: 20px; min-height: 40px; }
+  .architecture .schema-head > span { font-size: 11px; padding: 7px 9px; }
+  .architecture .schema-head h3 { font-size: 22px; line-height: 1.3; }
+  .architecture .arch-diagram { height: 296px; position: relative; margin: 8px 12px 0; }
+  .architecture .arch-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+  .architecture .arch-lines g path { fill: none; stroke: #52677b; stroke-width: 1; vector-effect: non-scaling-stroke; transition: stroke .18s; }
+  .architecture .arch-lines .arch-external-edge { stroke-dasharray: 4 4; }
+  .architecture .arch-lines g[data-associated="true"] path { stroke: #97d5e2; stroke-width: 1.5; }
+  .architecture .arch-lines g[data-associated="false"] { opacity: .45; }
+  .architecture .arch-edge-label { position: absolute; transform: translate(-50%, -50%); background: #0b1016; color: #c0ccd9; padding: 2px 4px; font: 11px/18px var(--mono); white-space: nowrap; pointer-events: none; transition: color .18s; }
+  .architecture [data-kind="data"] { color: #bad4df; }
+  .architecture [data-kind="control"] { color: #c2d7e1; font-weight: 500; }
+  .architecture .arch-edge-label:not([data-secondary]) { font-size: 12px; }
+  .architecture .arch-edge-label[data-associated="true"] { color: #9ad7e3; }
+  .architecture .arch-relation-key { display: flex; gap: 14px; padding: 0 20px 12px; color: #b5c2d0; font: 11px/18px var(--mono); }
+  .architecture .arch-relation-key small { font-size: 11px; margin-left: auto; color: #a4b3c4; }
+  .architecture .arch-node { position: absolute; transform: translate(-50%, -50%); width: 142px; min-height: 76px; padding: 13px 10px; border: 1px solid #455365; border-radius: 5px; background: #111923; text-align: left; transition: border-color .18s, background .18s; }
+  .architecture .arch-node strong { display: block; font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: -.015em; }
+  .architecture .arch-node > span:last-child { display: block; font-size: 12px; line-height: 18px; color: #b3c3d4; margin-top: 5px; }
+  .architecture .arch-node-port { position: absolute; left: 50%; top: -3px; width: 4px; height: 4px; background: #738da2; }
+  .architecture .arch-node:hover, .architecture .arch-node:focus-visible { border-color: #86b7c6; background: #17242e; }
+  .architecture .arch-node.selected { border-color: #8cc8d7; background: #132630; box-shadow: inset 2px 0 #8cc8d7; }
+  .architecture .arch-node[data-related="true"] .arch-node-port { background: #9ad7e3; }
+  .architecture .arch-node-detail { position: relative; min-height: 80px; padding: 12px 20px; color: #c6d2df; }
+  .architecture .arch-node-detail > div { padding-right: 32px; }
+  .architecture .arch-node-detail strong { font-size: 14px; line-height: 22px; font-weight: 500; color: #e4eaf2; }
+  .architecture .arch-node-detail p { font-size: 14px; line-height: 1.6; margin-top: 6px; }
+  .architecture .arch-detail-close { position: absolute; top: 12px; right: 10px; width: 40px; height: 40px; border-radius: 4px; color: #b4c7d8; }
+  .architecture .arch-detail-close:hover { background: #ffffff08; color: #e3f4f8; }
+  @keyframes architecture-view-in { from { opacity: .75; } to { opacity: 1; } }
+  @media (max-width: 1250px) {
+    .architecture .architecture-grid { grid-template-columns: minmax(0, .55fr) minmax(0, 1.45fr); gap: 32px; }
+    .architecture .layer-tab { gap: 16px; }
+    .architecture .layer-tab h3 { font-size: 30px; }
+    .architecture .arch-node { width: 120px; }
+    .architecture .arch-node-detail { min-height: 104px; }
+  }
+  @media (max-width: 900px) {
+    .architecture .architecture-grid { grid-template-columns: 1fr; gap: 28px; }
+    .architecture .layer-tab { padding-block: 16px; }
+    .architecture .layer-tab > div { flex: 1; }
+    .architecture .layer-tab h3 { font-size: 25px; }
+    .architecture .layer-state { margin-top: 5px; }
+    .architecture .arch-node { width: 136px; }
+  }
+  @media (max-width: 760px) {
+    .architecture { padding-block: 64px; }
+    .architecture .section-label { font-size: 10px; letter-spacing: .025em; gap: 10px; margin-bottom: 24px; }
+    .architecture .label-line { width: 20px; }
+    .architecture .section-heading { margin-bottom: 30px; gap: 18px; }
+    .architecture .layer-tab small { font-size: 10px; }
+    .architecture .layer-number { font-size: 11px; }
+    .architecture .panel-topline { padding: 12px; font-size: 9px; }
+    .architecture .arch-view { padding-top: 18px; }
+    .architecture .schema-head { gap: 10px; padding-inline: 12px; }
+    .architecture .schema-head h3 { font-size: 18px; }
+    .architecture .arch-diagram { height: 308px; margin-inline: 5px; }
+    .architecture .arch-node { width: 96px; min-height: 76px; padding: 10px 8px; }
+    .architecture .arch-node strong { font-size: 12px; }
+    .architecture .arch-node > span:last-child { font-size: 11px; }
+    .architecture .arch-edge-label { font-size: 10px; padding-inline: 2px; }
+    .architecture .arch-edge-label:not([data-secondary]) { font-size: 11px; }
+    .architecture .arch-relation-key { padding-inline: 12px; gap: 10px; }
+    .architecture .arch-node-detail { padding: 12px 14px; }
+    .architecture .arch-detail-close { width: 44px; height: 44px; right: 6px; top: 8px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .architecture .arch-view { animation: none; }
+    .architecture .layer-tab, .architecture .arch-node, .architecture .arch-lines path, .architecture .arch-edge-label { transition: none; }
+  }
+}

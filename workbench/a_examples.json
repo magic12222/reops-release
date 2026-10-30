@@ -1,0 +1,277 @@
+{
+  "mode": "offline_fixture",
+  "real_observation": false,
+  "real_execution": false,
+  "note": "Test-only examples. Do not import into real Memory or authorization ledgers.",
+  "observations": {
+    "healthy": {
+      "schema_version": "1.0",
+      "observation_id": "obs-a-4699a9c3c3444bb28070a17385797348",
+      "incident_id": "incident-example",
+      "trace_id": "trace-example",
+      "case_id": null,
+      "timestamp": "2026-10-27T07:39:07.669287+00:00",
+      "system": {
+        "name": "reops-lab",
+        "environment": "docker-local",
+        "target_id": "reops-lab-api"
+      },
+      "services": {
+        "api": {
+          "status": "healthy",
+          "message": "running"
+        },
+        "business": {
+          "status": "healthy",
+          "message": "GET /users payload validation"
+        }
+      },
+      "logs": [],
+      "metrics": {
+        "api_up": 1
+      },
+      "request": {
+        "method": "GET",
+        "endpoint": "/users",
+        "status_code": 200,
+        "latency_ms": 1.0,
+        "business_passed": true
+      },
+      "target_health": "healthy",
+      "sampling_error": null,
+      "sample_completed_at": "2026-10-27T07:39:07.669287+00:00",
+      "source": "offline_fixture",
+      "real_observation": false
+    },
+    "externally_stopped": {
+      "schema_version": "1.0",
+      "observation_id": "obs-a-da485dbf21d24ab78e77c9ed10d008d2",
+      "incident_id": "incident-example",
+      "trace_id": "trace-example",
+      "case_id": null,
+      "timestamp": "2026-10-27T07:39:07.669287+00:00",
+      "system": {
+        "name": "reops-lab",
+        "environment": "docker-local",
+        "target_id": "reops-lab-api"
+      },
+      "services": {
+        "api": {
+          "status": "unhealthy",
+          "message": "stopped"
+        },
+        "business": {
+          "status": "unknown",
+          "message": "GET /users payload validation"
+        }
+      },
+      "logs": [],
+      "metrics": {
+        "api_up": 0
+      },
+      "request": {
+        "method": "GET",
+        "endpoint": "/users",
+        "status_code": null,
+        "latency_ms": null,
+        "business_passed": null
+      },
+      "target_health": "unhealthy",
+      "sampling_error": null,
+      "sample_completed_at": "2026-10-27T07:39:07.669287+00:00",
+      "source": "offline_fixture",
+      "real_observation": false
+    },
+    "post_recovery": {
+      "schema_version": "1.0",
+      "observation_id": "obs-a-d2aa146f3b414a9b9b7f6a2c3ce86d8c",
+      "incident_id": "incident-example",
+      "trace_id": "trace-example",
+      "case_id": null,
+      "timestamp": "2026-10-27T07:39:07.688178+00:00",
+      "system": {
+        "name": "reops-lab",
+        "environment": "docker-local",
+        "target_id": "reops-lab-api"
+      },
+      "services": {
+        "api": {
+          "status": "healthy",
+          "message": "running"
+        },
+        "business": {
+          "status": "healthy",
+          "message": "GET /users payload validation"
+        }
+      },
+      "logs": [],
+      "metrics": {
+        "api_up": 1
+      },
+      "request": {
+        "method": "GET",
+        "endpoint": "/users",
+        "status_code": 200,
+        "latency_ms": 1.0,
+        "business_passed": true
+      },
+      "target_health": "healthy",
+      "sampling_error": null,
+      "sample_completed_at": "2026-10-27T07:39:07.688178+00:00",
+      "source": "offline_fixture",
+      "real_observation": false
+    },
+    "sampling_failed": {
+      "schema_version": "1.0",
+      "observation_id": "obs-a-2025d1fd92834ad3a148005c5a4db9bc",
+      "incident_id": "incident-example",
+      "trace_id": "trace-example",
+      "case_id": null,
+      "timestamp": "2026-10-27T07:39:07.690687+00:00",
+      "system": {
+        "name": "reops-lab",
+        "environment": "docker-local",
+        "target_id": "reops-lab-api"
+      },
+      "services": {
+        "api": {
+          "status": "unknown"
+        },
+        "business": {
+          "status": "unknown"
+        }
+      },
+      "logs": [],
+      "metrics": {
+        "api_up": null
+      },
+      "request": {
+        "method": "GET",
+        "endpoint": "/users",
+        "status_code": null,
+        "latency_ms": null,
+        "business_passed": null
+      },
+      "target_health": "unknown",
+      "sampling_error": "target_sample_unavailable",
+      "sample_completed_at": "2026-10-27T07:39:07.690687+00:00",
+      "source": "offline_fixture",
+      "real_observation": false
+    },
+    "business_503_process_alive": {
+      "schema_version": "1.0",
+      "observation_id": "obs-a-283397e78c8c48b9aade3d8fb83be004",
+      "incident_id": "incident-example",
+      "trace_id": "trace-example",
+      "case_id": null,
+      "timestamp": "2026-10-27T07:39:07.690687+00:00",
+      "system": {
+        "name": "reops-lab",
+        "environment": "docker-local",
+        "target_id": "reops-lab-api"
+      },
+      "services": {
+        "api": {
+          "status": "healthy",
+          "message": "running"
+        },
+        "business": {
+          "status": "unhealthy",
+          "message": "GET /users payload validation"
+        }
+      },
+      "logs": [],
+      "metrics": {
+        "api_up": 1
+      },
+      "request": {
+        "method": "GET",
+        "endpoint": "/users",
+        "status_code": 503,
+        "latency_ms": 1,
+        "business_passed": false
+      },
+      "target_health": "unhealthy",
+      "sampling_error": null,
+      "sample_completed_at": "2026-10-27T07:39:07.690687+00:00",
+      "source": "offline_fixture",
+      "real_observation": false
+    }
+  },
+  "recovery_action": {
+    "schema_version": "1.0",
+    "action_id": "act-offline-example",
+    "incident_id": "incident-example",
+    "trace_id": "trace-example",
+    "case_id": null,
+    "diagnosis_id": "diag-001",
+    "timestamp": "2026-10-01T20:30:04+08:00",
+    "action": "start_service",
+    "target": "web",
+    "reason": "PostgreSQL is unavailable and service-down evidence is consistent.",
+    "expected_success": 0.91,
+    "estimated_cost": 0.2,
+    "risk": 0.1,
+    "requires_approval": false,
+    "parameters": {}
+  },
+  "recovery_results": {
+    "success": {
+      "schema_version": "1.0",
+      "result_id": "result-a-b2a81da46dab4fed83d0fc28aefad043",
+      "incident_id": "incident-example",
+      "trace_id": "trace-example",
+      "case_id": null,
+      "action_id": "act-offline-example",
+      "timestamp": "2026-10-27T07:39:07.672289+00:00",
+      "execution_status": "succeeded",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "",
+      "duration_ms": 15.0,
+      "post_observation_id": "obs-a-d2aa146f3b414a9b9b7f6a2c3ce86d8c",
+      "target_id": "reops-lab-api",
+      "mutation_attempted": true,
+      "verification": {
+        "status": "recovered",
+        "checked_at": "2026-10-27T07:39:07.688178+00:00",
+        "health_check_passed": true,
+        "fault_cleared": null,
+        "business_request_passed": true,
+        "evidence": [
+          "Fresh Observation obs-a-d2aa146f3b414a9b9b7f6a2c3ce86d8c",
+          "A measures HTTP/business health; B confirms root cause and final Verify"
+        ]
+      },
+      "source": "offline_fixture",
+      "real_execution": false
+    },
+    "paused_rejection": {
+      "schema_version": "1.0",
+      "result_id": "result-a-b1327229b1074391861753366b22c1c0",
+      "incident_id": "incident-example",
+      "trace_id": "trace-example",
+      "case_id": null,
+      "action_id": "act-offline-paused",
+      "timestamp": "2026-10-27T07:39:07.691697+00:00",
+      "execution_status": "rejected",
+      "exit_code": null,
+      "stdout": "",
+      "stderr": "action_rejected_check_scope_monitoring_and_authorization",
+      "duration_ms": 0.0,
+      "post_observation_id": null,
+      "target_id": "reops-lab-api",
+      "mutation_attempted": false,
+      "verification": {
+        "status": "not_run",
+        "checked_at": null,
+        "health_check_passed": null,
+        "fault_cleared": null,
+        "business_request_passed": null,
+        "evidence": []
+      },
+      "source": "offline_fixture",
+      "real_execution": false
+    }
+  }
+}

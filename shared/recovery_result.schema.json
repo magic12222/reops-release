@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://reops.local/schemas/recovery_result.schema.json",
+  "title": "ReOps Recovery Result",
+  "type": "object",
+  "required": [
+    "schema_version", "result_id", "incident_id", "trace_id", "action_id",
+    "timestamp", "execution_status", "exit_code", "stdout", "stderr",
+    "duration_ms", "post_observation_id", "verification"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "result_id": {"type": "string", "minLength": 1},
+    "incident_id": {"type": "string", "minLength": 1},
+    "trace_id": {"type": "string", "minLength": 1},
+    "case_id": {"type": ["string", "null"]},
+    "action_id": {"type": "string", "minLength": 1},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "execution_status": {
+      "type": "string",
+      "enum": ["succeeded", "failed", "rejected", "skipped"]
+    },
+    "exit_code": {"type": ["integer", "null"]},
+    "stdout": {"type": ["string", "null"]},
+    "stderr": {"type": ["string", "null"]},
+    "duration_ms": {"type": "number", "minimum": 0},
+    "post_observation_id": {"type": ["string", "null"]},
+    "verification": {
+      "type": "object",
+      "required": [
+        "status", "checked_at", "health_check_passed", "fault_cleared",
+        "business_request_passed", "evidence"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["recovered", "not_recovered", "inconclusive", "not_run"]
+        },
+        "checked_at": {"type": ["string", "null"], "format": "date-time"},
+        "health_check_passed": {"type": ["boolean", "null"]},
+        "fault_cleared": {"type": ["boolean", "null"]},
+        "business_request_passed": {"type": ["boolean", "null"]},
+        "evidence": {"type": "array", "items": {"type": "string"}}
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}

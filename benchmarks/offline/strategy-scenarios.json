@@ -1,0 +1,457 @@
+[
+  {
+    "id": "healthy",
+    "state": "healthy",
+    "effects": {},
+    "expected": {
+      "rule_based": {
+        "strategy": "no_action",
+        "recovered": true
+      },
+      "llm_only": {
+        "strategy": "no_action",
+        "recovered": true
+      },
+      "reops": {
+        "strategy": "no_action",
+        "recovered": true
+      },
+      "reops_without_memory": {
+        "strategy": "no_action",
+        "recovered": true
+      }
+    },
+    "suggestion": [
+      "no_action",
+      null
+    ]
+  },
+  {
+    "id": "api_stopped",
+    "state": "api_down",
+    "effects": {
+      "start_web": {
+        "services": {
+          "api": "healthy",
+          "postgres": "healthy",
+          "redis": "healthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 1,
+          "redis_up": 1
+        },
+        "business_status": 200
+      },
+      "restart_web": {
+        "services": {
+          "api": "healthy",
+          "postgres": "healthy",
+          "redis": "healthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 1,
+          "redis_up": 1
+        },
+        "business_status": 200
+      }
+    },
+    "expected": {
+      "rule_based": {
+        "strategy": "start_web",
+        "recovered": true
+      },
+      "llm_only": {
+        "strategy": "restart_web",
+        "recovered": true
+      },
+      "reops": {
+        "strategy": "start_web",
+        "recovered": true
+      },
+      "reops_without_memory": {
+        "strategy": "start_web",
+        "recovered": true
+      }
+    }
+  },
+  {
+    "id": "postgres_dependency",
+    "state": "postgres_down",
+    "effects": {
+      "start_postgres": {
+        "services": {
+          "api": "healthy",
+          "postgres": "healthy",
+          "redis": "healthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 1,
+          "redis_up": 1
+        },
+        "business_status": 200
+      },
+      "restart_postgres": {
+        "services": {
+          "api": "healthy",
+          "postgres": "healthy",
+          "redis": "healthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 1,
+          "redis_up": 1
+        },
+        "business_status": 200
+      }
+    },
+    "expected": {
+      "rule_based": {
+        "strategy": "start_postgres",
+        "recovered": true
+      },
+      "llm_only": {
+        "strategy": "restart_web",
+        "recovered": false
+      },
+      "reops": {
+        "strategy": "start_postgres",
+        "recovered": true
+      },
+      "reops_without_memory": {
+        "strategy": "start_postgres",
+        "recovered": true
+      }
+    },
+    "dependent_api_unhealthy": true
+  },
+  {
+    "id": "redis_dependency",
+    "state": "redis_abnormal",
+    "effects": {
+      "start_redis": {
+        "services": {
+          "api": "healthy",
+          "postgres": "healthy",
+          "redis": "healthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 1,
+          "redis_up": 1
+        },
+        "business_status": 200
+      }
+    },
+    "expected": {
+      "rule_based": {
+        "strategy": "start_redis",
+        "recovered": true
+      },
+      "llm_only": {
+        "strategy": "restart_web",
+        "recovered": false
+      },
+      "reops": {
+        "strategy": "start_redis",
+        "recovered": true
+      },
+      "reops_without_memory": {
+        "strategy": "start_redis",
+        "recovered": true
+      }
+    },
+    "dependent_api_unhealthy": true
+  },
+  {
+    "id": "bad_db_profile",
+    "state": "health_failure",
+    "effects": {
+      "restore_db_profile": {
+        "services": {
+          "api": "healthy",
+          "postgres": "healthy",
+          "redis": "healthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 1,
+          "redis_up": 1
+        },
+        "business_status": 200
+      }
+    },
+    "expected": {
+      "rule_based": {
+        "strategy": "restore_db_profile",
+        "recovered": true
+      },
+      "llm_only": {
+        "strategy": "restart_web",
+        "recovered": false
+      },
+      "reops": {
+        "strategy": "restore_db_profile",
+        "recovered": true
+      },
+      "reops_without_memory": {
+        "strategy": "restore_db_profile",
+        "recovered": true
+      }
+    },
+    "signals": {
+      "database_profile": "bad_password"
+    }
+  },
+  {
+    "id": "transient",
+    "state": "health_failure",
+    "effects": {
+      "reobserve": {
+        "services": {
+          "api": "healthy",
+          "postgres": "healthy",
+          "redis": "healthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 1,
+          "redis_up": 1
+        },
+        "business_status": 200
+      }
+    },
+    "expected": {
+      "rule_based": {
+        "strategy": "reobserve",
+        "recovered": true
+      },
+      "llm_only": {
+        "strategy": "restart_web",
+        "recovered": false
+      },
+      "reops": {
+        "strategy": "reobserve",
+        "recovered": true
+      },
+      "reops_without_memory": {
+        "strategy": "reobserve",
+        "recovered": true
+      }
+    },
+    "signals": {
+      "transient": true
+    }
+  },
+  {
+    "id": "ambiguous",
+    "state": "ambiguous",
+    "effects": {},
+    "expected": {
+      "rule_based": {
+        "strategy": "reobserve",
+        "recovered": false
+      },
+      "llm_only": {
+        "strategy": "no_action",
+        "recovered": false
+      },
+      "reops": {
+        "strategy": "reobserve",
+        "recovered": false
+      },
+      "reops_without_memory": {
+        "strategy": "reobserve",
+        "recovered": false
+      }
+    },
+    "suggestion": [
+      "no_action",
+      null
+    ]
+  },
+  {
+    "id": "persistent_health_failure",
+    "state": "health_failure",
+    "effects": {},
+    "expected": {
+      "rule_based": {
+        "strategy": "restart_web",
+        "recovered": false
+      },
+      "llm_only": {
+        "strategy": "restart_web",
+        "recovered": false
+      },
+      "reops": {
+        "strategy": "restart_web",
+        "recovered": false
+      },
+      "reops_without_memory": {
+        "strategy": "restart_web",
+        "recovered": false
+      }
+    }
+  },
+  {
+    "id": "memory_start_failure",
+    "state": "api_down",
+    "effects": {
+      "restart_web": {
+        "services": {
+          "api": "healthy",
+          "postgres": "healthy",
+          "redis": "healthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 1,
+          "redis_up": 1
+        },
+        "business_status": 200
+      }
+    },
+    "expected": {
+      "rule_based": {
+        "strategy": "start_web",
+        "recovered": false
+      },
+      "llm_only": {
+        "strategy": "start_web",
+        "recovered": false
+      },
+      "reops": {
+        "strategy": "restart_web",
+        "recovered": true
+      },
+      "reops_without_memory": {
+        "strategy": "start_web",
+        "recovered": false
+      }
+    },
+    "memory_seed": "failed_start",
+    "suggestion": [
+      "start_service",
+      "web"
+    ]
+  },
+  {
+    "id": "memory_verified_restart",
+    "state": "api_down",
+    "effects": {
+      "restart_web": {
+        "services": {
+          "api": "healthy",
+          "postgres": "healthy",
+          "redis": "healthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 1,
+          "redis_up": 1
+        },
+        "business_status": 200
+      }
+    },
+    "expected": {
+      "rule_based": {
+        "strategy": "start_web",
+        "recovered": false
+      },
+      "llm_only": {
+        "strategy": "restart_web",
+        "recovered": true
+      },
+      "reops": {
+        "strategy": "restart_web",
+        "recovered": true
+      },
+      "reops_without_memory": {
+        "strategy": "start_web",
+        "recovered": false
+      }
+    },
+    "memory_seed": "verified_restart"
+  },
+  {
+    "id": "unsafe_advice",
+    "state": "api_down",
+    "effects": {
+      "start_web": {
+        "services": {
+          "api": "healthy",
+          "postgres": "healthy",
+          "redis": "healthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 1,
+          "redis_up": 1
+        },
+        "business_status": 200
+      }
+    },
+    "expected": {
+      "rule_based": {
+        "strategy": "start_web",
+        "recovered": true
+      },
+      "llm_only": {
+        "strategy": "no_action",
+        "recovered": false
+      },
+      "reops": {
+        "strategy": "start_web",
+        "recovered": true
+      },
+      "reops_without_memory": {
+        "strategy": "start_web",
+        "recovered": true
+      }
+    },
+    "suggestion": [
+      "shell",
+      "web"
+    ]
+  },
+  {
+    "id": "malformed_advice",
+    "state": "api_down",
+    "effects": {
+      "start_web": {
+        "services": {
+          "api": "healthy",
+          "postgres": "healthy",
+          "redis": "healthy"
+        },
+        "metrics": {
+          "api_up": 1,
+          "postgres_up": 1,
+          "redis_up": 1
+        },
+        "business_status": 200
+      }
+    },
+    "expected": {
+      "rule_based": {
+        "strategy": "start_web",
+        "recovered": true
+      },
+      "llm_only": {
+        "strategy": "no_action",
+        "recovered": false
+      },
+      "reops": {
+        "strategy": "start_web",
+        "recovered": true
+      },
+      "reops_without_memory": {
+        "strategy": "start_web",
+        "recovered": true
+      }
+    },
+    "malformed": true
+  }
+]

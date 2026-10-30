@@ -1,0 +1,17 @@
+{
+  "schema_version": "1.0",
+  "action_id": "act-001",
+  "incident_id": "incident-001",
+  "trace_id": "trace-001",
+  "case_id": "case-postgres-down-001",
+  "diagnosis_id": "diag-001",
+  "timestamp": "2026-10-01T20:30:04+08:00",
+  "action": "restart_service",
+  "target": "postgres",
+  "reason": "PostgreSQL is unavailable and service-down evidence is consistent.",
+  "expected_success": 0.91,
+  "estimated_cost": 0.2,
+  "risk": 0.1,
+  "requires_approval": false,
+  "parameters": {}
+}

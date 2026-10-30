@@ -1,0 +1,47 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+credentials*.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.venv-nexent/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage*
+# Node
+node_modules/
+.pnpm-store/
+dist/
+build/
+.next/
+coverage/
+*.tsbuildinfo
+# Local browser verification artifacts (keep on disk, never publish)
+/output/playwright/
+/.playwright-cli/
+# Editors
+.vscode/
+.idea/
+*.code-workspace
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+# Docker and local runtime files
+*.pid
+*.log
+docker-compose.override.yml
+tmp/
+temp/
+data/*.jsonl
+runtime/

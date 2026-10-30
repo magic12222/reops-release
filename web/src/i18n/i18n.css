@@ -1,0 +1,2 @@
+/* English status labels must fit the existing topology cards on narrow screens. */
+html[lang='en'] .system-topology .node-meta { white-space: normal; overflow-wrap: anywhere; }

@@ -1,0 +1,21 @@
+.incident-flow { padding: 22px 24px; border-bottom: 1px solid var(--wb-line); background: #10161b; }
+.incident-flow header { display:flex; align-items:center; justify-content:space-between; gap:16px; }
+.incident-flow h3 { font-size:14px; font-weight:500; color:#dce7ec; margin:0; }
+.incident-flow header p { font-size:11px; color:#a4b1bf; margin:6px 0 14px; }
+.incident-flow header>span { font:9px var(--mono); color:#a3b7bb; }
+.flow-identity { display:flex; flex-wrap:wrap; gap:8px 20px; font-size:10px; color:#b4c2cf; margin:0 0 16px; }
+.flow-identity code { color:#a2babd; overflow-wrap:anywhere; }
+.flow-steps { display:grid; grid-template-columns:repeat(auto-fit,minmax(175px,1fr)); gap:8px; }
+.flow-step { min-width:0; border:1px solid #35414a; border-radius:5px; background:#151d24; }
+.flow-step summary { display:grid; grid-template-columns:22px 1fr; padding:12px; gap:6px; cursor:pointer; list-style:none; }
+.flow-index { color:#9aabb9; font:10px var(--mono); padding-top:2px; }
+.flow-step strong { font-size:11px; font-weight:500; color:#d3e0e6; }
+.flow-state { grid-column:2; font-size:10px; color:#b0bdc9; text-transform:capitalize; }
+.flow-step.succeeded .flow-state { color:#a2d4bf; }.flow-step.failed .flow-state { color:#edb0a8; }.flow-step.waiting_human .flow-state { color:#dcc18e; }
+.flow-step[open] { grid-column:1/-1; }
+.flow-step p,.flow-step ul { padding:0 14px 12px; margin:0; color:#b5c3ce; font-size:11px; line-height:1.8; overflow-wrap:anywhere; }
+.flow-step ul { padding-left:28px; }
+.flow-step button { display:flex; flex-wrap:wrap; gap:8px; width:calc(100% - 28px); margin:0 14px 10px; padding:9px 11px; border:1px solid #3d535c; border-radius:4px; color:#b8dbd5; text-align:left; background:#17272d; font-size:11px; }
+.flow-step button code,.flow-step button time { font-size:9px; color:#a6bac6; overflow-wrap:anywhere; }
+.flow-note { font-size:10px; line-height:1.8; color:#99aab8; margin:12px 0 0; }
+@media(max-width:760px) { .incident-flow { padding:20px 17px; }.incident-flow header { align-items:start; }.flow-steps { grid-template-columns:repeat(2,minmax(0,1fr)); }.flow-step summary { padding:10px 8px; gap:5px; grid-template-columns:18px 1fr; }.flow-step strong { font-size:10px; } }

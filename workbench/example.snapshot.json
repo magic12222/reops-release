@@ -1,0 +1,288 @@
+{
+  "schema_version": "0.1",
+  "source": "offline_fixture",
+  "generated_at": "2026-10-27T09:02:00+08:00",
+  "a_status": "ready",
+  "b_status": "ready",
+  "targets": [
+    {
+      "id": "fixture-local-api",
+      "name": "Local demo service",
+      "runtime": "process",
+      "health": "healthy",
+      "monitoring": "paused",
+      "observed_at": "2026-10-27T09:02:00+08:00",
+      "components": [
+        {
+          "id": "api",
+          "name": "HTTP service",
+          "health": "healthy"
+        }
+      ],
+      "allowed_actions": [
+        "start_service(api)"
+      ]
+    }
+  ],
+  "incidents": [
+    {
+      "id": "fixture-incident-01",
+      "target_id": "fixture-local-api",
+      "trace_id": "fixture-trace-01",
+      "title": "First incident · Model diagnosis",
+      "started_at": "2026-10-27T09:01:00+08:00",
+      "status": "recovered",
+      "diagnosis_source": "model",
+      "summary": "Sample: diagnose and recover an externally stopped HTTP service.",
+      "events": [
+        {
+          "id": "fixture-event-1-0",
+          "sequence": 0,
+          "timestamp": "2026-10-27T09:01:00+08:00",
+          "stage": "observe",
+          "status": "succeeded",
+          "title": "Observe target state",
+          "detail": "Process missing; business connection refused.",
+          "evidence": [
+            "process_running=false",
+            "business_request=connection_refused"
+          ]
+        },
+        {
+          "id": "fixture-event-1-1",
+          "sequence": 1,
+          "timestamp": "2026-10-27T09:01:01+08:00",
+          "stage": "failure_detection",
+          "status": "succeeded",
+          "title": "Create incident",
+          "detail": "Repeated unhealthy samples belong to one incident.",
+          "evidence": []
+        },
+        {
+          "id": "fixture-event-1-2",
+          "sequence": 2,
+          "timestamp": "2026-10-27T09:01:02+08:00",
+          "stage": "localization",
+          "status": "succeeded",
+          "title": "Localize failure",
+          "detail": "The failure is localized to the HTTP process.",
+          "evidence": [
+            "component=api"
+          ]
+        },
+        {
+          "id": "fixture-event-1-3",
+          "sequence": 3,
+          "timestamp": "2026-10-27T09:01:03+08:00",
+          "stage": "root_cause_analysis",
+          "status": "succeeded",
+          "title": "Request model diagnosis",
+          "detail": "Send redacted observations and receive a structured diagnosis.",
+          "evidence": [
+            "See API conversation for request and response"
+          ]
+        },
+        {
+          "id": "fixture-event-1-4",
+          "sequence": 4,
+          "timestamp": "2026-10-27T09:01:04+08:00",
+          "stage": "recovery_decision",
+          "status": "succeeded",
+          "title": "Select allowed action",
+          "detail": "Select start_service(api); recheck target identity and permission.",
+          "evidence": []
+        },
+        {
+          "id": "fixture-event-1-5",
+          "sequence": 5,
+          "timestamp": "2026-10-27T09:01:05+08:00",
+          "stage": "recovery_execution",
+          "status": "succeeded",
+          "title": "Execute recovery tool",
+          "detail": "The fixed start tool succeeded; independent verification is still required.",
+          "evidence": []
+        },
+        {
+          "id": "fixture-event-1-6",
+          "sequence": 6,
+          "timestamp": "2026-10-27T09:01:06+08:00",
+          "stage": "verification",
+          "status": "succeeded",
+          "title": "Verify business recovery",
+          "detail": "Fresh observations confirm a running process and two successful business requests.",
+          "evidence": [
+            "fresh_check_1=passed",
+            "fresh_check_2=passed"
+          ]
+        },
+        {
+          "id": "fixture-event-1-7",
+          "sequence": 7,
+          "timestamp": "2026-10-27T09:01:07+08:00",
+          "stage": "experience_update",
+          "status": "succeeded",
+          "title": "Save verified memory",
+          "detail": "Link the incident, recovery action and verification evidence.",
+          "evidence": [
+            "fixture-exp-01"
+          ]
+        }
+      ],
+      "model_calls": [
+        {
+          "id": "fixture-call-01",
+          "model": "Sample model (no live request)",
+          "status": "succeeded",
+          "request": "{\n  \"component\": \"api\",\n  \"process_running\": false,\n  \"business_request\": \"connection_refused\"\n}",
+          "response": "{\n  \"root_cause\": \"api_process_exited\",\n  \"suggested_action\": \"start_service(api)\"\n}",
+          "duration_ms": 1100,
+          "input_tokens": 120,
+          "output_tokens": 40,
+          "redacted": true
+        }
+      ],
+      "experience_ids": [
+        "fixture-exp-01"
+      ],
+      "verification": {
+        "status": "passed",
+        "checks": [
+          "Process is running again",
+          "Two fresh business requests passed"
+        ]
+      }
+    },
+    {
+      "id": "fixture-incident-02",
+      "target_id": "fixture-local-api",
+      "trace_id": "fixture-trace-02",
+      "title": "Recurring incident · Memory reuse",
+      "started_at": "2026-10-27T09:02:00+08:00",
+      "status": "recovered",
+      "diagnosis_source": "experience",
+      "summary": "Sample: validate memory conditions and execute a bounded recovery.",
+      "events": [
+        {
+          "id": "fixture-event-2-0",
+          "sequence": 0,
+          "timestamp": "2026-10-27T09:02:00+08:00",
+          "stage": "observe",
+          "status": "succeeded",
+          "title": "Observe target state",
+          "detail": "Process missing; business connection refused.",
+          "evidence": [
+            "process_running=false",
+            "business_request=connection_refused"
+          ]
+        },
+        {
+          "id": "fixture-event-2-1",
+          "sequence": 1,
+          "timestamp": "2026-10-27T09:02:01+08:00",
+          "stage": "failure_detection",
+          "status": "succeeded",
+          "title": "Create incident",
+          "detail": "Repeated unhealthy samples belong to one incident.",
+          "evidence": []
+        },
+        {
+          "id": "fixture-event-2-2",
+          "sequence": 2,
+          "timestamp": "2026-10-27T09:02:02+08:00",
+          "stage": "localization",
+          "status": "succeeded",
+          "title": "Localize failure",
+          "detail": "The failure is localized to the HTTP process.",
+          "evidence": [
+            "component=api"
+          ]
+        },
+        {
+          "id": "fixture-event-2-3",
+          "sequence": 3,
+          "timestamp": "2026-10-27T09:02:03+08:00",
+          "stage": "root_cause_analysis",
+          "status": "succeeded",
+          "title": "Match verified memory",
+          "detail": "A successful memory for this target matches the current conditions.",
+          "evidence": [
+            "fixture-exp-01"
+          ]
+        },
+        {
+          "id": "fixture-event-2-4",
+          "sequence": 4,
+          "timestamp": "2026-10-27T09:02:04+08:00",
+          "stage": "recovery_decision",
+          "status": "succeeded",
+          "title": "Select allowed action",
+          "detail": "Select start_service(api); recheck target identity and permission.",
+          "evidence": []
+        },
+        {
+          "id": "fixture-event-2-5",
+          "sequence": 5,
+          "timestamp": "2026-10-27T09:02:05+08:00",
+          "stage": "recovery_execution",
+          "status": "succeeded",
+          "title": "Execute recovery tool",
+          "detail": "The fixed start tool succeeded; independent verification is still required.",
+          "evidence": []
+        },
+        {
+          "id": "fixture-event-2-6",
+          "sequence": 6,
+          "timestamp": "2026-10-27T09:02:06+08:00",
+          "stage": "verification",
+          "status": "succeeded",
+          "title": "Verify business recovery",
+          "detail": "Fresh observations confirm a running process and two successful business requests.",
+          "evidence": [
+            "fresh_check_1=passed",
+            "fresh_check_2=passed"
+          ]
+        },
+        {
+          "id": "fixture-event-2-7",
+          "sequence": 7,
+          "timestamp": "2026-10-27T09:02:07+08:00",
+          "stage": "experience_update",
+          "status": "succeeded",
+          "title": "Record memory reuse",
+          "detail": "Link the incident, recovery action and verification evidence.",
+          "evidence": [
+            "fixture-exp-01"
+          ]
+        }
+      ],
+      "model_calls": [],
+      "experience_ids": [
+        "fixture-exp-01"
+      ],
+      "verification": {
+        "status": "passed",
+        "checks": [
+          "Process is running again",
+          "Two fresh business requests passed"
+        ]
+      }
+    }
+  ],
+  "experiences": [
+    {
+      "id": "fixture-exp-01",
+      "target_id": "fixture-local-api",
+      "incident_id": "fixture-incident-01",
+      "title": "Restart an exited HTTP process and verify the business endpoint",
+      "symptom": "Process exited and business requests failed",
+      "root_cause": "The monitored HTTP service process exited",
+      "action": "start_service(api)",
+      "conditions": [
+        "Target identity matches its registered configuration",
+        "Process and business probes confirm the failure",
+        "Only the configured start action is allowed"
+      ],
+      "status": "verified"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://reops.local/schemas/agent_event.schema.json",
+  "title": "ReOps Agent Event",
+  "type": "object",
+  "required": [
+    "schema_version", "event_id", "incident_id", "trace_id", "timestamp",
+    "stage", "status", "message", "data"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "event_id": {"type": "string", "minLength": 1},
+    "incident_id": {"type": "string", "minLength": 1},
+    "trace_id": {"type": "string", "minLength": 1},
+    "case_id": {"type": ["string", "null"]},
+    "parent_event_id": {"type": ["string", "null"]},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "stage": {
+      "type": "string",
+      "enum": [
+        "observe", "failure_detection", "localization", "root_cause_analysis",
+        "recovery_decision", "recovery_execution", "verification", "experience_update"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["started", "success", "failed", "skipped", "waiting_human"]
+    },
+    "component": {"type": ["string", "null"]},
+    "step": {"type": ["string", "null"]},
+    "message": {"type": "string", "minLength": 1},
+    "confidence": {"type": ["number", "null"], "minimum": 0, "maximum": 1},
+    "observation_id": {"type": ["string", "null"]},
+    "diagnosis_id": {"type": ["string", "null"]},
+    "action_id": {"type": ["string", "null"]},
+    "result_id": {"type": ["string", "null"]},
+    "data": {"type": "object", "additionalProperties": true}
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,17 @@
+.unified-monitor { padding:12px 16px; margin:12px 0; border:1px solid #34473f; border-radius:6px; background:#141d1b; color:#b6ccc4; font-size:11px; line-height:1.65; }
+.unified-monitor-top { display:flex; justify-content:space-between; align-items:center; gap:10px 16px; flex-wrap:wrap; }
+.unified-monitor-top>div { display:flex; align-items:center; gap:6px 12px; flex-wrap:wrap; min-width:0; }
+.unified-monitor-top strong { color:#e1ece8; font-size:13px; overflow-wrap:anywhere; }
+.unified-monitor-top span { font-size:10px; color:#a5b8b1; }
+.unified-monitor-top .unified-health.healthy { color:#b1d1bd; }
+.unified-monitor-top .unified-health.unhealthy { color:#e4b0a8; }
+.unified-monitor button { display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:8px 12px; border:1px solid #547364; border-radius:4px; background:#253a31; color:#e2f0e8; cursor:pointer; font:inherit; white-space:normal; }
+.unified-monitor button:disabled { opacity:.45; cursor:not-allowed; }
+.unified-monitor-scope { display:flex; flex-wrap:wrap; gap:3px 18px; margin:9px 0 6px; color:#a6b6b0; font-size:10px; }
+.unified-policy summary { cursor:pointer; color:#b6c6bf; font-size:10px; }
+.unified-policy p { margin:8px 0 0; max-width:100ch; }
+.unified-monitor [role=alert] { color:#e5b89c; }
+.unified-monitor :focus-visible { outline:2px solid #b2ddc4; outline-offset:3px; }
+@media(max-width:760px) { .unified-monitor { padding:12px; }.unified-monitor-top>button { width:100%; min-height:36px; }.unified-monitor-scope { gap:4px; }.unified-monitor-scope>span { width:100%; } }
+
+.unified-consequence { font-size:10px; color:#a6b6b0; margin:4px 0; }

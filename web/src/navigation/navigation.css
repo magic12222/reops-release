@@ -1,0 +1,11 @@
+/* Page layout only. Existing component typography, colors and grids are retained. */
+.route-page[hidden] { display: none !important; }
+.route-page:not(.route-overview) { padding-top: var(--nav-height); }
+#main:focus { outline: none; }
+/* Route entry is immediate; preserve existing reveals further down each page. */
+.route-page > .section > div:first-child,
+.route-page .benchmark > .section > div:first-child,
+.route-page > .recovery-section > div:first-child,
+.route-architecture .architecture-grid,
+.route-benchmark .benchmark-metrics { opacity: 1 !important; transform: none !important; }
+@media (max-width: 760px) { .route-page:not(.route-overview) { padding-top: 68px; } }

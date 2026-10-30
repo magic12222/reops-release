@@ -1,0 +1,535 @@
+{
+  "$defs": {
+    "Component": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "health": {
+          "enum": [
+            "healthy",
+            "unhealthy",
+            "unknown"
+          ],
+          "title": "Health",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "health"
+      ],
+      "title": "Component",
+      "type": "object"
+    },
+    "Event": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "sequence": {
+          "minimum": 0,
+          "title": "Sequence",
+          "type": "integer"
+        },
+        "timestamp": {
+          "title": "Timestamp",
+          "type": "string"
+        },
+        "stage": {
+          "enum": [
+            "observe",
+            "failure_detection",
+            "localization",
+            "root_cause_analysis",
+            "recovery_decision",
+            "recovery_execution",
+            "verification",
+            "experience_update"
+          ],
+          "title": "Stage",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "running",
+            "succeeded",
+            "failed",
+            "skipped",
+            "waiting_human",
+            "unknown"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "detail": {
+          "title": "Detail",
+          "type": "string"
+        },
+        "evidence": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Evidence",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "sequence",
+        "timestamp",
+        "stage",
+        "status",
+        "title",
+        "detail",
+        "evidence"
+      ],
+      "title": "Event",
+      "type": "object"
+    },
+    "Experience": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "target_id": {
+          "title": "Target Id",
+          "type": "string"
+        },
+        "incident_id": {
+          "title": "Incident Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "symptom": {
+          "title": "Symptom",
+          "type": "string"
+        },
+        "root_cause": {
+          "title": "Root Cause",
+          "type": "string"
+        },
+        "action": {
+          "title": "Action",
+          "type": "string"
+        },
+        "conditions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Conditions",
+          "type": "array"
+        },
+        "status": {
+          "enum": [
+            "verified",
+            "failed",
+            "retired",
+            "unverified"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "target_id",
+        "incident_id",
+        "title",
+        "symptom",
+        "root_cause",
+        "action",
+        "conditions",
+        "status"
+      ],
+      "title": "Experience",
+      "type": "object"
+    },
+    "Incident": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "target_id": {
+          "title": "Target Id",
+          "type": "string"
+        },
+        "trace_id": {
+          "minLength": 1,
+          "title": "Trace Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "started_at": {
+          "title": "Started At",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "observing",
+            "diagnosing",
+            "waiting_human",
+            "executing",
+            "verifying",
+            "recovered",
+            "failed",
+            "unknown"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "diagnosis_source": {
+          "enum": [
+            "model",
+            "experience",
+            "rule",
+            "unknown"
+          ],
+          "title": "Diagnosis Source",
+          "type": "string"
+        },
+        "summary": {
+          "title": "Summary",
+          "type": "string"
+        },
+        "events": {
+          "items": {
+            "$ref": "#/$defs/Event"
+          },
+          "title": "Events",
+          "type": "array"
+        },
+        "model_calls": {
+          "items": {
+            "$ref": "#/$defs/ModelCall"
+          },
+          "title": "Model Calls",
+          "type": "array"
+        },
+        "experience_ids": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Experience Ids",
+          "type": "array"
+        },
+        "verification": {
+          "$ref": "#/$defs/Verification"
+        }
+      },
+      "required": [
+        "id",
+        "target_id",
+        "trace_id",
+        "title",
+        "started_at",
+        "status",
+        "diagnosis_source",
+        "summary",
+        "events",
+        "model_calls",
+        "experience_ids",
+        "verification"
+      ],
+      "title": "Incident",
+      "type": "object"
+    },
+    "ModelCall": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "model": {
+          "title": "Model",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "running",
+            "succeeded",
+            "failed",
+            "unknown"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "request": {
+          "title": "Request",
+          "type": "string"
+        },
+        "response": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Response"
+        },
+        "duration_ms": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Duration Ms"
+        },
+        "input_tokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Input Tokens"
+        },
+        "output_tokens": {
+          "anyOf": [
+            {
+              "minimum": 0,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Output Tokens"
+        },
+        "redacted": {
+          "const": true,
+          "title": "Redacted",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "model",
+        "status",
+        "request",
+        "response",
+        "duration_ms",
+        "input_tokens",
+        "output_tokens",
+        "redacted"
+      ],
+      "title": "ModelCall",
+      "type": "object"
+    },
+    "Target": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "runtime": {
+          "enum": [
+            "process",
+            "docker",
+            "windows_service"
+          ],
+          "title": "Runtime",
+          "type": "string"
+        },
+        "health": {
+          "enum": [
+            "healthy",
+            "unhealthy",
+            "unknown"
+          ],
+          "title": "Health",
+          "type": "string"
+        },
+        "monitoring": {
+          "enum": [
+            "watching",
+            "paused",
+            "not_connected"
+          ],
+          "title": "Monitoring",
+          "type": "string"
+        },
+        "observed_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Observed At"
+        },
+        "components": {
+          "items": {
+            "$ref": "#/$defs/Component"
+          },
+          "title": "Components",
+          "type": "array"
+        },
+        "allowed_actions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Allowed Actions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "runtime",
+        "health",
+        "monitoring",
+        "observed_at",
+        "components",
+        "allowed_actions"
+      ],
+      "title": "Target",
+      "type": "object"
+    },
+    "Verification": {
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "passed",
+            "failed",
+            "pending",
+            "unknown"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "checks": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Checks",
+          "type": "array"
+        }
+      },
+      "required": [
+        "status",
+        "checks"
+      ],
+      "title": "Verification",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "0.1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "source": {
+      "enum": [
+        "real",
+        "offline_fixture"
+      ],
+      "title": "Source",
+      "type": "string"
+    },
+    "generated_at": {
+      "title": "Generated At",
+      "type": "string"
+    },
+    "a_status": {
+      "enum": [
+        "not_connected",
+        "ready"
+      ],
+      "title": "A Status",
+      "type": "string"
+    },
+    "b_status": {
+      "enum": [
+        "not_connected",
+        "ready"
+      ],
+      "title": "B Status",
+      "type": "string"
+    },
+    "targets": {
+      "items": {
+        "$ref": "#/$defs/Target"
+      },
+      "title": "Targets",
+      "type": "array"
+    },
+    "incidents": {
+      "items": {
+        "$ref": "#/$defs/Incident"
+      },
+      "title": "Incidents",
+      "type": "array"
+    },
+    "experiences": {
+      "items": {
+        "$ref": "#/$defs/Experience"
+      },
+      "title": "Experiences",
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "source",
+    "generated_at",
+    "a_status",
+    "b_status",
+    "targets",
+    "incidents",
+    "experiences"
+  ],
+  "title": "Snapshot",
+  "type": "object"
+}

@@ -1,0 +1,6 @@
+import { Database, Layers, Server, Workflow } from 'lucide-react';
+
+export function FaultLocalization({ index }: { index: number }) {
+  const candidates = index < 0 ? 0 : index < 2 ? 4 : index < 3 ? 2 : 1;
+  return <div className="localization"><div className="mini-heading"><span>FAULT LOCALIZATION</span><span>{index < 0 ? 'STANDBY' : `${candidates} ${candidates === 1 ? 'ROOT CAUSE' : 'CANDIDATES'}`}</span></div><div className="dependency-chain"><div className={index >= 2 ? 'eliminated' : ''}><Server size={17} /><span>API</span><small>{index >= 2 ? 'alive' : 'entry'}</small></div><span className="dependency-arrow">→</span><div className={`root-node ${index >= 0 ? 'suspect' : ''} ${index >= 3 ? 'identified' : ''}`}><Database size={17} /><span>PostgreSQL</span><small>{index >= 3 ? 'root cause' : 'database'}</small></div><span className="dependency-arrow">→</span><div className={index >= 3 ? 'eliminated' : ''}><Workflow size={17} /><span>Worker*</span><small>concept</small></div><div className={`redis-branch ${index >= 2 ? 'eliminated' : ''}`}><Layers size={15} /><span>Redis</span><small>{index >= 2 ? 'healthy' : 'cache'}</small></div></div><p>{index < 0 ? '从业务入口沿依赖排查，逐步缩小故障范围。' : index < 2 ? '业务请求失败。正在检查 API、缓存与数据库证据。' : index < 3 ? 'API 存活，Redis 健康。锁定数据库访问步骤。' : 'PostgreSQL 服务停止 → database_query 连接失败。'}</p></div>;
+}

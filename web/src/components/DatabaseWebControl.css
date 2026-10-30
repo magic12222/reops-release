@@ -1,0 +1,20 @@
+.database-web-control { scroll-margin-top: 100px; }
+.database-web-control h4 { margin: 24px 0 12px; }
+.database-web-control .button { border: 1px solid #61989e; border-radius: 4px; padding: 10px 16px; background: #183238; color: #d7f2f4; cursor: pointer; font: inherit; }
+.database-web-control .button:hover:not(:disabled) { background: #24464d; }
+.database-web-control .button:disabled { opacity: .45; cursor: not-allowed; }
+.database-web-control .button:focus-visible { outline: 2px solid #69c8d0; outline-offset: 3px; }
+.database-web-control label { display: grid; gap: 8px; font-size: 14px; }
+.database-web-control input { width: 100%; min-width: 0; border: 1px solid var(--border); border-radius: 4px; background: #080d13; color: var(--text); padding: 12px; font: 14px/1.5 var(--mono); }
+.database-web-control input:focus { outline: 2px solid #69c8d0; outline-offset: 2px; }
+.database-key-note { margin: 12px 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+.database-model-heading { display: flex; gap: 16px; align-items: baseline; flex-wrap: wrap; }
+.database-model-heading span { color: var(--muted); font-size: 13px; }
+.database-control-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 12px; }
+.database-control-actions span { font-size: 13px; color: var(--muted); }
+.database-confirmation { border: 1px solid #43676d; padding: 20px; margin-top: 24px; border-radius: 5px; }
+.database-confirmation p { line-height: 1.7; margin: 12px 0; }
+.database-challenge { display: block; padding: 14px; margin: 16px 0; background: #080d13; overflow-wrap: anywhere; font: 14px/1.7 var(--mono); color: #b6e8eb; user-select: text; }
+.database-web-control pre { max-height: 300px; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; font: 12px/1.7 var(--mono); }
+.database-job-state { border-top: 1px solid var(--border); margin-top: 24px; padding-top: 20px; }
+.database-job-state p { overflow-wrap: anywhere; }
