@@ -1,10 +1,10 @@
 {
-  "version": "preliminary-2026.10.30",
+  "version": "v1.0.1-preliminary",
   "repository": "https://github.com/magic12222/reops-release",
   "files": {
     ".gitignore": "a6b8bc5855320034fcdfc328943ab904c17a1d404d82f8b7762a09ab2b8e536e",
     "LICENSE": "7567101dcc7673c1a97faec42e4305f9f16c8b421ae3f0e239b67f3d763a2b9a",
-    "README.md": "75174d3d53f77b969c7e90543abd4f83290c9703659e20d20d98644a6224ea72",
+    "README.md": "ca62c2b20a78e0fa8aa68b9cfb29174053c12fa3298ed08a6ee2f7d76f2ab581",
     "THIRD_PARTY_NOTICES.md": "b1c3a62eefe5db429d6c14259b13061b7949ea1bf591e4d55560d89800f82e63",
     "benchmarks/offline/scenarios.json": "14e928f691f0b62b8b70fc81488f78134b324e8ac38add949eb6ac74baf4dda0",
     "benchmarks/offline/strategy-multiround-scenarios.json": "ee5b319e6f7318563c7e1f8ec7c98da5906a16120a225887a8c05fa21ad961d0",
