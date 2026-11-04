@@ -29,9 +29,16 @@ def main():
         if hashlib.sha256(data).hexdigest() != expected:
             findings.append({'file': name, 'rule': 'checksum'})
         if (any(p in {'runtime', 'node_modules', '__pycache__', '.git', 'dev-log', 'docs'} for p in Path(name).parts)
-                or name.endswith(('.sqlite3', '.db', '.env', '.pem', '.key'))
+                or name.endswith(('.sqlite3', '.db', '.env', '.pem', '.key', '.p12', '.p7b', '.hap', '.hsp'))
                 or name.startswith('integrations/researchloop/') or name == 'handoff.md'):
             findings.append({'file': name, 'rule': 'forbidden_file'})
+        if name == 'harmony/build-profile.json5':
+            profile = json.loads(data)
+            if profile['app']['signingConfigs']:
+                findings.append({'file': name, 'rule': 'signing_configuration'})
+            product = next(p for p in profile['app']['products'] if p['name'] == 'default')
+            if product['buildOption']['arkOptions']['buildProfileFields']['CONTRACT_TEST'] is not False:
+                findings.append({'file': name, 'rule': 'production_contract_test'})
         if b'\0' not in data:
             for number, line in enumerate(data.decode('utf-8', errors='replace').splitlines(), 1):
                 for rule, pattern in patterns.items():
@@ -68,10 +75,17 @@ def main():
         from dashboard_api.web_control import WebControl
         from dashboard_api.web_model import WebModel
         from scripts.run_workbench_preview import create_app as workbench_app
+        from dashboard_api.history_access import create_history_app
+        from workbench.b_store import BStore
+        import secrets
         (ROOT / 'runtime').mkdir(exist_ok=True)
         with tempfile.TemporaryDirectory(prefix='release-check-', dir=ROOT / 'runtime') as temp:
             db = Path(temp) / 'empty.sqlite3'
             app = create_app(store=Store(db), web_control=WebControl(db, model=WebModel()))
+            b_path = Path(temp) / 'b.sqlite3'
+            BStore(b_path)
+            token = secrets.token_urlsafe(40)
+            mobile_app = create_history_app(b_path=b_path, dashboard_path=db, token=token, archives=False)
             async def verify():
                 async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url='http://127.0.0.1:8020') as client:
                     response = await client.get('/api/v1/health')
@@ -83,6 +97,17 @@ def main():
                     response = await client.get('/api/v1/workbench/snapshot')
                     assert response.status_code == 200
                     assert response.json()['source'] == 'real'
+                async with httpx.AsyncClient(transport=httpx.ASGITransport(app=mobile_app),
+                        base_url='https://127.0.0.1:8443') as client:
+                    assert (await client.get('/api/v1/mobile/overview')).status_code == 401
+                    headers = {'Authorization': 'Bearer ' + token}
+                    response = await client.get('/api/v1/mobile/overview', headers=headers)
+                    assert response.status_code == 200
+                    assert response.json()['total'] == 0
+                    assert response.json()['target_health'] == 'unknown'
+                    response = await client.get('/api/v1/mobile/deployment', headers=headers)
+                    assert response.status_code == 200
+                    assert len(response.json()['loaded_code_sha256']) == 64
             asyncio.run(verify())
         print(json.dumps({'offline_api': 'passed', 'real_network_calls': 0, 'model_calls': 0, 'recovery_actions': 0}))
     finally:

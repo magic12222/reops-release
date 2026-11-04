@@ -4,5 +4,6 @@ export function localProxy(env:Record<string,string>) {
   // String shorthand makes Vite rewrite Host to the upstream address. Keep the
   // browser's allowed local Host so backend same-origin checks remain effective.
   const route=(target:string)=>({target,changeOrigin:false});
-  return {'/api/v1/workbench':route(env.REOPS_WORKBENCH_PROXY||dashboard),'/api/v1':route(dashboard)};
+  const workbench=env.REOPS_WORKBENCH_PROXY||dashboard;
+  return {'/api/v1/mobile':route(env.REOPS_MOBILE_PROXY||workbench),'/api/v1/workbench':route(workbench),'/api/v1':route(dashboard)};
 }

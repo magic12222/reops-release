@@ -24,8 +24,12 @@ EVENT_COLUMNS = ("event_id", "run_id", "incident_id", "trace_id", "ordinal", "st
 
 
 class Store:
-    def __init__(self, path: str | Path):
+    def __init__(self, path: str | Path, *, read_only: bool = False):
         self.path = str(path)
+        self.read_only = read_only
+        if read_only:
+            # Audits must never create a missing database or run initialization DDL.
+            return
         Path(path).parent.mkdir(parents=True, exist_ok=True)
         with self._connect() as db:
             db.executescript("""
@@ -49,8 +53,9 @@ class Store:
             """)
 
     @contextmanager
-    def _connect(self):
-        db = sqlite3.connect(self.path, timeout=10)
+    def _connect(self, *, read_only: bool = False):
+        db = (sqlite3.connect(Path(self.path).resolve().as_uri() + '?mode=ro', uri=True, timeout=10)
+              if self.read_only or read_only else sqlite3.connect(self.path, timeout=10))
         db.row_factory = sqlite3.Row
         db.execute("PRAGMA foreign_keys = ON")
         try:
@@ -213,6 +218,24 @@ class Store:
             rows = db.execute("SELECT * FROM events WHERE run_id=? ORDER BY ordinal",
                               (run_id,)).fetchall()
             return run, [self._read_event(row) for row in rows]
+
+    def incident_snapshots(self, incident_id: str, trace_id: str, *, source: str):
+        """Exact correlation only; both Run and Event sets share one committed snapshot."""
+        if source not in SOURCES:
+            raise ValueError('invalid source')
+        with self._connect(read_only=True) as db:
+            db.execute('BEGIN')
+            runs = db.execute('SELECT * FROM runs WHERE incident_id=? AND trace_id=? AND source=? ORDER BY id',
+                              (incident_id, trace_id, source)).fetchall()
+            result = []
+            for row in runs:
+                run = self._read_run(row)
+                events = [self._read_event(e) for e in db.execute(
+                    'SELECT * FROM events WHERE run_id=? ORDER BY ordinal', (run.id,))]
+                for event in events:
+                    self._check_event(event, run)
+                result.append((run, events))
+            return result
 
     def append_live(self, run: Run, event: Event):
         """Append one already-durable B journal event without reordering or replaying it."""

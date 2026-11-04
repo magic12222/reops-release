@@ -11,6 +11,7 @@ FILES = {
     '.gitignore', 'README.md', 'LICENSE', 'THIRD_PARTY_NOTICES.md',
     'requirements.txt', 'requirements-dev.txt', 'requirements-nexent.txt',
     'requirements-lock.txt', 'pytest.ini', 'docker-compose.yml', 'infra/docker/Dockerfile',
+    'requirements-mobile-access.txt', 'requirements-harmony-pairing.txt', 'shared/harmony-api.md',
     'workbench/snapshot.schema.json', 'workbench/example.snapshot.json',
     'workbench/a_examples.json', 'integrations/vikunja/compose.yml',
     'web/src/deployment.ts',
@@ -30,6 +31,9 @@ SCRIPTS = {
     'validate_shared.py', 'scan_secrets.py', 'check_a02_liveness_readonly.py',
     'build_release.py', 'check_release.py', 'install.ps1', 'start.ps1',
     'verify_release.cjs',
+    'configure_mobile_access.py', 'serve_history_access.py', 'show_harmony_connection.py',
+    'build_harmony_signed.py', 'check_harmony_api.py', 'audit_harmony_data.py',
+    'verify_harmony_http.py', 'verify_history_access.py', 'verify_harmony_device.py',
 }
 TESTS = {
     'conftest.py', 'test_model_service_store.py', 'test_model_registry.py',
@@ -40,6 +44,18 @@ TESTS = {
     'test_a_workbench.py', 'test_ab_scenario_contract.py', 'test_b_measurements.py',
     'test_dependency_records.py', 'test_recovery_smoke.py', 'test_researchloop_recovery.py',
     'test_vikunja.py',
+    'test_mobile_api.py', 'test_history_access.py',
+}
+
+HARMONY_FILES = {
+    'harmony/.gitignore', 'harmony/README.md', 'harmony/build-profile.json5',
+    'harmony/oh-package.json5', 'harmony/hvigorfile.ts', 'harmony/hvigor/hvigor-config.json5',
+    'harmony/entry/build-profile.json5', 'harmony/entry/oh-package.json5', 'harmony/entry/hvigorfile.ts',
+    'harmony/scripts/build.ps1', 'harmony/scripts/device_smoke.py',
+    'harmony/scripts/verify_local_device.py', 'harmony/scripts/verify_real_device.py',
+    'harmony/tests/contracts.cjs', 'harmony/tests/local-cache.cjs',
+    'harmony/tests/mobile-v1.fixture.json', 'harmony/tests/contract_server.py',
+    'harmony/tests/device_contract.py',
 }
 
 
@@ -47,6 +63,10 @@ def selected(name):
     path = Path(name)
     if name in FILES:
         return True
+    if path.parts[0] == 'harmony':
+        return name in HARMONY_FILES or (
+            name.startswith(('harmony/entry/src/', 'harmony/AppScope/'))
+            and path.suffix in {'.ets', '.json', '.json5', '.svg'})
     if path.parts[0] == 'web':
         return (name != 'web/README.md' and name != 'web/run.ps1'
                 and path.suffix in {'.ts', '.tsx', '.css', '.json', '.yaml', '.html', '.svg', '.png', '.cjs', '.conf'})
@@ -60,16 +80,17 @@ def selected(name):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--version', default='1.1.0')
     args = parser.parse_args()
     destination = args.output.resolve()
     if not destination.is_relative_to(ROOT / 'runtime') or destination.exists():
         raise SystemExit('输出必须为项目 runtime 内尚不存在的目录')
     tracked = subprocess.check_output(['git', 'ls-files', '-z'], cwd=ROOT).decode().split('\0')
-    candidates = set(filter(None, tracked)) | FILES
+    candidates = set(filter(None, tracked)) | FILES | HARMONY_FILES
     candidates |= {p.relative_to(ROOT).as_posix() for folder in ('licenses',) for p in (ROOT / folder).rglob('*') if p.is_file()}
     candidates |= {'scripts/' + name for name in SCRIPTS}
     included = sorted(name for name in candidates if selected(name) and (ROOT / name).is_file())
-    missing = sorted(name for name in FILES if not (ROOT / name).is_file())
+    missing = sorted(name for name in FILES | HARMONY_FILES if not (ROOT / name).is_file())
     if missing:
         raise SystemExit('缺少必要文件: ' + ', '.join(missing))
     manifest = {}
@@ -85,7 +106,7 @@ def main():
     attributes.write_bytes(b'* -text\n')
     manifest['.gitattributes'] = hashlib.sha256(attributes.read_bytes()).hexdigest()
     (destination / 'release-manifest.json').write_text(json.dumps({
-        'version': 'preliminary-2026.10.30',
+        'version': args.version,
         'repository': 'https://github.com/magic12222/reops-release',
         'files': manifest,
     }, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')

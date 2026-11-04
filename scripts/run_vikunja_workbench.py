@@ -35,7 +35,23 @@ def main():
     parser.add_argument("--paused", action="store_true", help="录制准备：连接目标后等待网页点击开启业务监控")
     parser.add_argument("--agent", action="store_true", help="接通Vikunja专用B诊断/经验；已批准演示走原恢复范围，模型关闭")
     parser.add_argument("--import-baseline", action="store_true", help="仅将SHA256固定的已验收原件投影为历史经验，不重放")
+    parser.add_argument('--history-read-only', action='store_true', help='原8021只读查询既存BStore及固定归档；不创建演示业务数据')
+    parser.add_argument('--live-monitoring', action='store_true', help='实时Vikunja业务监控与历史查询；新独立任务基线，无模型/恢复')
+    parser.add_argument('--lan-ip', help='查询模式可选：明确私网IPv4，TLS移动入口8443')
+    parser.add_argument('--lan-cidr', help='查询模式可选：明确允许的私网子网，最多4096个地址')
+    parser.add_argument('--usb-access', action='store_true', help='查询模式另提供回环TLS8443，供已授权hdc USB转发')
     args = parser.parse_args()
+    if args.history_read_only or args.live_monitoring:
+        if args.history_read_only and args.live_monitoring:
+            parser.error('--history-read-only and --live-monitoring are mutually exclusive')
+        if args.serve or args.login or args.paused or args.agent or args.import_baseline:
+            parser.error('read API modes cannot enable recovery controls or agent')
+        from scripts.serve_history_access import serve
+        serve(lan_ip=args.lan_ip, lan_cidr=args.lan_cidr, usb_access=args.usb_access,
+              **({'live_monitoring': True} if args.live_monitoring else {}))
+        return 0
+    if args.lan_ip or args.lan_cidr or args.usb_access:
+        parser.error('--lan-ip/--lan-cidr/--usb-access require --history-read-only or --live-monitoring')
     if args.import_baseline and (not args.agent or not args.serve):
         parser.error("--import-baseline requires --serve --agent")
     inspection = VikunjaDocker().inspect()

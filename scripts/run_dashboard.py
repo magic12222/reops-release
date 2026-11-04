@@ -3,6 +3,7 @@
 import os
 import argparse
 import json
+from pathlib import Path
 
 import uvicorn
 
@@ -13,10 +14,20 @@ from scripts.sync_b_dashboard import ROOT, sync_history
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--skip-history", action="store_true")
+    parser.add_argument('--mobile-read-only', action='store_true', help='仅在原8020提供移动只读查询；不导入、不启动监控/模型/恢复')
     parser.add_argument("--researchloop-web", action="store_true", help="启用本机ResearchLoop网页逐项人工授权入口")
     parser.add_argument("--workbench-monitoring", action="store_true", help="启用本机工作台的显式目标选择与监控控制，不开放恢复")
     parser.add_argument("--workbench-agent", action="store_true", help="同进程接通B持久诊断，须配合--workbench-monitoring；不启用模型和恢复")
     args = parser.parse_args()
+    if args.mobile_read_only:
+        if args.researchloop_web or args.workbench_monitoring or args.workbench_agent:
+            parser.error('--mobile-read-only cannot enable model or monitoring controls')
+        configured = os.getenv('REOPS_B_STATE_DB', '')
+        if not configured or not Path(configured).resolve().is_relative_to(ROOT) or not Path(configured).is_file():
+            parser.error('REOPS_B_STATE_DB must point to an existing database inside this project')
+        uvicorn.run('dashboard_api.api:create_mobile_read_app', factory=True,
+                    host='127.0.0.1', port=8020, workers=1)
+        return
     if args.workbench_agent and not args.workbench_monitoring:
         parser.error("--workbench-agent requires --workbench-monitoring")
     if args.workbench_agent:

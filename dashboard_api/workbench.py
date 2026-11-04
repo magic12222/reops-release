@@ -19,7 +19,20 @@ def read_snapshot() -> Snapshot:
                     targets=[*a.targets,*historical], incidents=b.incidents, experiences=b.experiences)
 
 
-def install_workbench_routes(app):
+def read_mobile_snapshot():
+    from .mobile import MobileSnapshot
+    # Same producers as Web. Persisted incidents remain queryable before target selection.
+    a = a_adapter.read_targets()
+    b = b_adapter.read_agent()
+    return MobileSnapshot(schema_version='0.1', source='real',
+        generated_at=datetime.now(timezone.utc).isoformat(), a_status=a.status, b_status=b.status,
+        targets=a.targets, incidents=b.incidents, experiences=b.experiences)
+
+
+def install_workbench_routes(app, store=None):
+    from .mobile import install_mobile_routes
+    install_mobile_routes(app, read_mobile_snapshot, store)
+
     @app.get("/api/v1/workbench/snapshot", response_model=Snapshot)
     def snapshot():
         try:

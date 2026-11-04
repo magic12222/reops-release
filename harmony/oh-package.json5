@@ -1,0 +1,8 @@
+{
+  "modelVersion": "6.1.1",
+  "name": "reops-mobile",
+  "version": "0.1.0",
+  "description": "ReOps native read-only mobile foundation",
+  "dependencies": {},
+  "devDependencies": {}
+}

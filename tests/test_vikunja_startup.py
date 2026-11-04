@@ -62,3 +62,26 @@ def test_cli_explains_occupied_port_before_creating_demo_data(capsys):
     assert '5174/workbench' in response['message']
     assert 'private' not in json.dumps(response)
     business.assert_not_called()
+
+
+def test_live_mobile_mode_routes_to_monitoring_without_recovery_host(monkeypatch):
+    from scripts.run_vikunja_workbench import main
+    with patch('scripts.serve_history_access.serve') as serve, \
+            patch('scripts.run_vikunja_workbench.VikunjaDocker') as backend, \
+            patch('scripts.run_vikunja_workbench.VikunjaMonitorControl') as control:
+        monkeypatch.setattr(sys, 'argv', ['run_vikunja_workbench', '--live-monitoring',
+                          '--lan-ip', '192.168.43.6', '--lan-cidr', '192.168.43.0/24', '--usb-access'])
+        assert main() == 0
+    serve.assert_called_once_with(lan_ip='192.168.43.6', lan_cidr='192.168.43.0/24',
+                                  usb_access=True, live_monitoring=True)
+    backend.assert_not_called()
+    control.assert_not_called()
+
+
+@pytest.mark.parametrize('extra', ['--history-read-only', '--serve', '--agent', '--import-baseline'])
+def test_live_mobile_mode_rejects_conflicting_execution_modes(monkeypatch, extra):
+    from scripts.run_vikunja_workbench import main
+    monkeypatch.setattr(sys, 'argv', ['run_vikunja_workbench', '--live-monitoring', extra])
+    with patch('scripts.serve_history_access.serve') as serve, pytest.raises(SystemExit):
+        main()
+    serve.assert_not_called()

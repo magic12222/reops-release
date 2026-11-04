@@ -1,0 +1,2 @@
+# 可选：本机内存二维码窗口，复用 requirements-mobile-access.txt 的系统凭据。
+qrcode[pil]==8.2

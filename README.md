@@ -10,6 +10,7 @@ ReOps 将软件故障的监测、受限恢复、执行证据和经验关联放�
 | --- | --- | --- |
 | 内置样例，建议先看 | 故障记录、执行时间线、样例模型对话、经验图谱、恢复动画 | Python、Node.js、pnpm；无需 Docker 或 API Key |
 | 真实业务演示 | 监控 Vikunja，观察数据库停止后的受限恢复与业务验证，查看本轮执行记录 | 上述工具及 Docker Desktop |
+| 鸿蒙手机端 | 查看业务健康、故障与历史诊断；体验App专用缓存监测和恢复 | Windows、DevEco Studio、HarmonyOS手机；远端监控另需Docker |
 | 真实模型分析 | 在本轮执行记录中查看实际模型请求及回复 | 真实业务环境、可用的模型 API Key、可选 Nexent SDK |
 
 **样例是预置数据，首页与 Recovery 页面是交互模拟。真实演示请使用工作台的“本地连接”。** 新下载包没有作者的历史数据、模型 Key 或已批准任务。
@@ -236,3 +237,40 @@ docker stop reops-vikunja-demo-postgres-1
 
 本包不包含 ResearchLoop-AI 外部应用，其运行入口已隐藏。支持的真实演示对象为上述 Vikunja 环境。
 交付验证已覆盖干净安装、离线测试、构建及隔离页面；新电脑首次容器部署、可选SDK从零安装、实际供应商聊天和真实恢复，仍须按本次运行结果确认。
+
+## 八、鸿蒙手机端
+
+工程与完整说明见[harmony/README.md](harmony/README.md)，接口见[mobile-v1](shared/harmony-api.md)。DevEco打开harmony目录，用本人的华为开发者账号为已登记设备配置调试签名并运行。源码不含作者签名或可通用安装的签名包。
+
+手机的“本机监控”可独立使用：它实际读写本App的专用缓存，缓存清理后经检测和复查自动重建。页面保留“演示场景”标识，不读取其他应用私有目录。概览、故障、AI诊断从电脑端读取；历史模型回复与本机缓存修复分别展示，缓存恢复不调用AI。
+
+### 连接电脑上的业务监控
+
+先完成上文安装。使用同一私网的Windows电脑与手机，以下地址和子网必须替换为自己的实际网络；不要直接复制作者的地址。首次准备空的业务读模型可执行：
+
+```powershell
+.\.venv-nexent\Scripts\python.exe -m pip install -r requirements-mobile-access.txt -r requirements-harmony-pairing.txt
+.\.venv-nexent\Scripts\python.exe -c "from workbench.b_store import BStore; from dashboard_api.store import Store; BStore('runtime/vikunja-b/state.sqlite3'); Store('runtime/dashboard-api.sqlite3')"
+.\.venv-nexent\Scripts\python.exe -m scripts.configure_mobile_access --lan-ip <电脑私网IPv4>
+```
+
+初始化只建立表结构，不填入历史或作者数据。证书命令将专用查询凭据及私钥放入当前Windows账户凭据管理器，仅输出公开根证书位置。把该根证书通过可信方式安装到自己的测试手机；不要关闭证书校验。仅向当前私网授权8443端口，不对公网开放。
+
+在原监控终端停止8021服务后，可选择一种入口：
+
+```powershell
+# 仅查看既有历史，不需要Docker；新环境显示空历史
+.\.venv-nexent\Scripts\python.exe -m scripts.run_vikunja_workbench --history-read-only --lan-ip <电脑私网IPv4> --lan-cidr <私网CIDR>
+# 或者，按上文准备并启动Vikunja后接通当前业务健康
+.\.venv-nexent\Scripts\python.exe -m scripts.run_vikunja_workbench --live-monitoring --lan-ip <电脑私网IPv4> --lan-cidr <私网CIDR>
+```
+
+两个模式互斥，都不提供远程恢复控制。实时模式创建独立测试任务并持续采样，退出终端即停止监控。手机概览是Vikunja的当前业务健康，历史恢复成功不等于当前健康；数据过期或监控未连接显示未知。
+
+另外打开终端运行私密配对窗口：
+
+```powershell
+.\.venv-nexent\Scripts\python.exe -m scripts.show_harmony_connection
+```
+
+手机点击“连接”扫码，核对自己的HTTPS地址后选择“连接并读取”。二维码带只读凭据，不录屏、不公开。凭据仅保存在App当前内存会话。首次空库没有故障或模型回复；可先体验本机缓存页，或按指南完成获准的真实业务流程后查看自己产生的记录。

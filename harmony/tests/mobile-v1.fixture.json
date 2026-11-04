@@ -1,0 +1,1012 @@
+{
+  "contract_commit": "25944ba83ff32c3e87ff373df78e022c07dd13bc",
+  "scope": "ASGI + offline_fixture only, not real backend",
+  "valid": {
+    "overview": {
+      "schema_version": "mobile-v1",
+      "source": "offline_fixture",
+      "generated_at": "2026-11-03T02:00:00+00:00",
+      "a_status": "not_connected",
+      "b_status": "ready",
+      "total": 2,
+      "counts_by_status": {
+        "observing": 0,
+        "diagnosing": 0,
+        "waiting_human": 0,
+        "executing": 0,
+        "verifying": 0,
+        "recovered": 1,
+        "failed": 0,
+        "unknown": 1
+      },
+      "since": null,
+      "until": null,
+      "statistics_scope": "persisted_workbench_incidents_started_at",
+      "latest_incident_update_at": "2026-11-03T01:00:00+00:00",
+      "target_health": "unknown",
+      "freshness_threshold_seconds": 60,
+      "targets": [],
+      "recent_incidents": [
+        {
+          "id": "fixture-incident-2",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-trace-2",
+          "title": "TEST ONLY: pending incident",
+          "status": "unknown",
+          "severity": null,
+          "started_at": "2026-11-03T01:00:00+00:00",
+          "updated_at": "2026-11-03T01:00:00+00:00",
+          "diagnosis_source": "unknown",
+          "summary": "",
+          "verification": {
+            "status": "unknown",
+            "checks": []
+          }
+        },
+        {
+          "id": "fixture-incident-1",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-trace-1",
+          "title": "TEST ONLY: PostgreSQL incident",
+          "status": "recovered",
+          "severity": null,
+          "started_at": "2026-11-03T00:00:00+00:00",
+          "updated_at": "2026-11-03T00:00:03+00:00",
+          "diagnosis_source": "rule",
+          "summary": "TEST ONLY: rule diagnosis summary",
+          "verification": {
+            "status": "passed",
+            "checks": [
+              "TEST ONLY: business check passed"
+            ]
+          }
+        }
+      ],
+      "recent_events": [
+        {
+          "id": "fixture-verify",
+          "sequence": 3,
+          "timestamp": "2026-11-03T00:00:03+00:00",
+          "stage": "verification",
+          "status": "succeeded",
+          "title": "TEST ONLY: business verification",
+          "detail": "TEST ONLY: business verification",
+          "evidence": [
+            "TEST ONLY: contract evidence"
+          ],
+          "incident_id": "fixture-incident-1",
+          "trace_id": "fixture-trace-1"
+        },
+        {
+          "id": "fixture-execute",
+          "sequence": 2,
+          "timestamp": "2026-11-03T00:00:02+00:00",
+          "stage": "recovery_execution",
+          "status": "succeeded",
+          "title": "TEST ONLY: recorded execution",
+          "detail": "TEST ONLY: recorded execution",
+          "evidence": [
+            "TEST ONLY: contract evidence"
+          ],
+          "incident_id": "fixture-incident-1",
+          "trace_id": "fixture-trace-1"
+        },
+        {
+          "id": "fixture-root",
+          "sequence": 1,
+          "timestamp": "2026-11-03T00:00:01+00:00",
+          "stage": "root_cause_analysis",
+          "status": "succeeded",
+          "title": "TEST ONLY: root cause evidence",
+          "detail": "TEST ONLY: root cause evidence",
+          "evidence": [
+            "TEST ONLY: contract evidence"
+          ],
+          "incident_id": "fixture-incident-1",
+          "trace_id": "fixture-trace-1"
+        },
+        {
+          "id": "fixture-observe",
+          "sequence": 0,
+          "timestamp": "2026-11-03T00:00:00+00:00",
+          "stage": "observe",
+          "status": "succeeded",
+          "title": "TEST ONLY: observation",
+          "detail": "TEST ONLY: observation",
+          "evidence": [
+            "TEST ONLY: contract evidence"
+          ],
+          "incident_id": "fixture-incident-1",
+          "trace_id": "fixture-trace-1"
+        }
+      ]
+    },
+    "page": {
+      "schema_version": "mobile-v1",
+      "source": "offline_fixture",
+      "generated_at": "2026-11-03T02:00:00+00:00",
+      "a_status": "not_connected",
+      "b_status": "ready",
+      "items": [
+        {
+          "id": "fixture-incident-2",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-trace-2",
+          "title": "TEST ONLY: pending incident",
+          "status": "unknown",
+          "severity": null,
+          "started_at": "2026-11-03T01:00:00+00:00",
+          "updated_at": "2026-11-03T01:00:00+00:00",
+          "diagnosis_source": "unknown",
+          "summary": "",
+          "verification": {
+            "status": "unknown",
+            "checks": []
+          }
+        },
+        {
+          "id": "fixture-incident-1",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-trace-1",
+          "title": "TEST ONLY: PostgreSQL incident",
+          "status": "recovered",
+          "severity": null,
+          "started_at": "2026-11-03T00:00:00+00:00",
+          "updated_at": "2026-11-03T00:00:03+00:00",
+          "diagnosis_source": "rule",
+          "summary": "TEST ONLY: rule diagnosis summary",
+          "verification": {
+            "status": "passed",
+            "checks": [
+              "TEST ONLY: business check passed"
+            ]
+          }
+        }
+      ],
+      "total": 2,
+      "limit": 20,
+      "offset": 0,
+      "has_more": false,
+      "since": null,
+      "until": null
+    },
+    "detail": {
+      "schema_version": "mobile-v1",
+      "source": "offline_fixture",
+      "generated_at": "2026-11-03T02:00:00+00:00",
+      "a_status": "not_connected",
+      "b_status": "ready",
+      "incident": {
+        "id": "fixture-incident-1",
+        "target_id": "fixture-target",
+        "trace_id": "fixture-trace-1",
+        "title": "TEST ONLY: PostgreSQL incident",
+        "started_at": "2026-11-03T00:00:00+00:00",
+        "status": "recovered",
+        "diagnosis_source": "rule",
+        "summary": "TEST ONLY: rule diagnosis summary",
+        "events": [
+          {
+            "id": "fixture-observe",
+            "sequence": 0,
+            "timestamp": "2026-11-03T00:00:00+00:00",
+            "stage": "observe",
+            "status": "succeeded",
+            "title": "TEST ONLY: observation",
+            "detail": "TEST ONLY: observation",
+            "evidence": [
+              "TEST ONLY: contract evidence"
+            ]
+          },
+          {
+            "id": "fixture-root",
+            "sequence": 1,
+            "timestamp": "2026-11-03T00:00:01+00:00",
+            "stage": "root_cause_analysis",
+            "status": "succeeded",
+            "title": "TEST ONLY: root cause evidence",
+            "detail": "TEST ONLY: root cause evidence",
+            "evidence": [
+              "TEST ONLY: contract evidence"
+            ]
+          },
+          {
+            "id": "fixture-execute",
+            "sequence": 2,
+            "timestamp": "2026-11-03T00:00:02+00:00",
+            "stage": "recovery_execution",
+            "status": "succeeded",
+            "title": "TEST ONLY: recorded execution",
+            "detail": "TEST ONLY: recorded execution",
+            "evidence": [
+              "TEST ONLY: contract evidence"
+            ]
+          },
+          {
+            "id": "fixture-verify",
+            "sequence": 3,
+            "timestamp": "2026-11-03T00:00:03+00:00",
+            "stage": "verification",
+            "status": "succeeded",
+            "title": "TEST ONLY: business verification",
+            "detail": "TEST ONLY: business verification",
+            "evidence": [
+              "TEST ONLY: contract evidence"
+            ]
+          }
+        ],
+        "model_calls": [],
+        "experience_ids": [
+          "fixture-exp"
+        ],
+        "verification": {
+          "status": "passed",
+          "checks": [
+            "TEST ONLY: business check passed"
+          ]
+        }
+      },
+      "severity": null,
+      "updated_at": "2026-11-03T00:00:03+00:00",
+      "diagnosis": {
+        "status": "not_started",
+        "source": "rule",
+        "diagnosed_at": null,
+        "failure_reason": null,
+        "calls": [],
+        "evidence_events": [
+          {
+            "id": "fixture-root",
+            "sequence": 1,
+            "timestamp": "2026-11-03T00:00:01+00:00",
+            "stage": "root_cause_analysis",
+            "status": "succeeded",
+            "title": "TEST ONLY: root cause evidence",
+            "detail": "TEST ONLY: root cause evidence",
+            "evidence": [
+              "TEST ONLY: contract evidence"
+            ]
+          }
+        ]
+      },
+      "knowledge": [
+        {
+          "id": "fixture-exp",
+          "target_id": "fixture-target",
+          "incident_id": "fixture-incident-1",
+          "title": "TEST ONLY: linked experience",
+          "symptom": "TEST ONLY: symptom",
+          "root_cause": "TEST ONLY: historical root cause",
+          "action": "TEST ONLY: historical action",
+          "conditions": [
+            "TEST ONLY condition"
+          ],
+          "status": "verified"
+        }
+      ],
+      "recovery": {
+        "decision_events": [],
+        "safety_events": [],
+        "authorization_events": [],
+        "execution_events": [
+          {
+            "id": "fixture-execute",
+            "sequence": 2,
+            "timestamp": "2026-11-03T00:00:02+00:00",
+            "stage": "recovery_execution",
+            "status": "succeeded",
+            "title": "TEST ONLY: recorded execution",
+            "detail": "TEST ONLY: recorded execution",
+            "evidence": [
+              "TEST ONLY: contract evidence"
+            ]
+          }
+        ],
+        "verification_events": [
+          {
+            "id": "fixture-verify",
+            "sequence": 3,
+            "timestamp": "2026-11-03T00:00:03+00:00",
+            "stage": "verification",
+            "status": "succeeded",
+            "title": "TEST ONLY: business verification",
+            "detail": "TEST ONLY: business verification",
+            "evidence": [
+              "TEST ONLY: contract evidence"
+            ]
+          }
+        ],
+        "verification": {
+          "status": "passed",
+          "checks": [
+            "TEST ONLY: business check passed"
+          ]
+        },
+        "outcome": "verified"
+      },
+      "run_link_status": "matched",
+      "runs": [
+        {
+          "run_id": "fixture-run-distinct",
+          "incident_id": "fixture-incident-1",
+          "trace_id": "fixture-trace-1",
+          "source": "offline_fixture",
+          "status": "recovered",
+          "event_ids": [
+            "fixture-run-event"
+          ]
+        }
+      ],
+      "gaps": [
+        "severity_not_recorded",
+        "diagnosis_timestamp_and_failure_reason_not_standardized",
+        "updated_at_is_latest_incident_event_not_model_call_time",
+        "target_monitoring_unavailable"
+      ]
+    },
+    "pending_detail": {
+      "schema_version": "mobile-v1",
+      "source": "offline_fixture",
+      "generated_at": "2026-11-03T02:00:00+00:00",
+      "a_status": "not_connected",
+      "b_status": "ready",
+      "incident": {
+        "id": "fixture-incident-2",
+        "target_id": "fixture-target",
+        "trace_id": "fixture-trace-2",
+        "title": "TEST ONLY: pending incident",
+        "started_at": "2026-11-03T01:00:00+00:00",
+        "status": "unknown",
+        "diagnosis_source": "unknown",
+        "summary": "",
+        "events": [],
+        "model_calls": [],
+        "experience_ids": [],
+        "verification": {
+          "status": "unknown",
+          "checks": []
+        }
+      },
+      "severity": null,
+      "updated_at": "2026-11-03T01:00:00+00:00",
+      "diagnosis": {
+        "status": "not_started",
+        "source": "unknown",
+        "diagnosed_at": null,
+        "failure_reason": null,
+        "calls": [],
+        "evidence_events": []
+      },
+      "knowledge": [],
+      "recovery": {
+        "decision_events": [],
+        "safety_events": [],
+        "authorization_events": [],
+        "execution_events": [],
+        "verification_events": [],
+        "verification": {
+          "status": "unknown",
+          "checks": []
+        },
+        "outcome": "unknown"
+      },
+      "run_link_status": "not_imported",
+      "runs": [],
+      "gaps": [
+        "severity_not_recorded",
+        "diagnosis_timestamp_and_failure_reason_not_standardized",
+        "updated_at_is_latest_incident_event_not_model_call_time",
+        "target_monitoring_unavailable",
+        "dashboard_run_not_imported"
+      ]
+    }
+  },
+  "empty": {
+    "overview": {
+      "schema_version": "mobile-v1",
+      "source": "offline_fixture",
+      "generated_at": "2026-11-03T02:00:00+00:00",
+      "a_status": "not_connected",
+      "b_status": "ready",
+      "total": 0,
+      "counts_by_status": {
+        "observing": 0,
+        "diagnosing": 0,
+        "waiting_human": 0,
+        "executing": 0,
+        "verifying": 0,
+        "recovered": 0,
+        "failed": 0,
+        "unknown": 0
+      },
+      "since": null,
+      "until": null,
+      "statistics_scope": "persisted_workbench_incidents_started_at",
+      "latest_incident_update_at": null,
+      "target_health": "unknown",
+      "freshness_threshold_seconds": 60,
+      "targets": [],
+      "recent_incidents": [],
+      "recent_events": []
+    },
+    "page": {
+      "schema_version": "mobile-v1",
+      "source": "offline_fixture",
+      "generated_at": "2026-11-03T02:00:00+00:00",
+      "a_status": "not_connected",
+      "b_status": "ready",
+      "items": [],
+      "total": 0,
+      "limit": 20,
+      "offset": 0,
+      "has_more": false,
+      "since": null,
+      "until": null
+    }
+  },
+  "paged": {
+    "0": {
+      "schema_version": "mobile-v1",
+      "source": "offline_fixture",
+      "generated_at": "2026-11-03T02:00:00+00:00",
+      "a_status": "not_connected",
+      "b_status": "ready",
+      "items": [
+        {
+          "id": "fixture-page-19",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-page-trace-19",
+          "title": "TEST ONLY: pending incident",
+          "status": "unknown",
+          "severity": null,
+          "started_at": "2026-11-03T03:19:00+00:00",
+          "updated_at": "2026-11-03T03:19:00+00:00",
+          "diagnosis_source": "unknown",
+          "summary": "",
+          "verification": {
+            "status": "unknown",
+            "checks": []
+          }
+        },
+        {
+          "id": "fixture-page-18",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-page-trace-18",
+          "title": "TEST ONLY: pending incident",
+          "status": "unknown",
+          "severity": null,
+          "started_at": "2026-11-03T03:18:00+00:00",
+          "updated_at": "2026-11-03T03:18:00+00:00",
+          "diagnosis_source": "unknown",
+          "summary": "",
+          "verification": {
+            "status": "unknown",
+            "checks": []
+          }
+        },
+        {
+          "id": "fixture-page-17",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-page-trace-17",
+          "title": "TEST ONLY: pending incident",
+          "status": "unknown",
+          "severity": null,
+          "started_at": "2026-11-03T03:17:00+00:00",
+          "updated_at": "2026-11-03T03:17:00+00:00",
+          "diagnosis_source": "unknown",
+          "summary": "",
+          "verification": {
+            "status": "unknown",
+            "checks": []
+          }
+        },
+        {
+          "id": "fixture-page-16",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-page-trace-16",
+          "title": "TEST ONLY: pending incident",
+          "status": "unknown",
+          "severity": null,
+          "started_at": "2026-11-03T03:16:00+00:00",
+          "updated_at": "2026-11-03T03:16:00+00:00",
+          "diagnosis_source": "unknown",
+          "summary": "",
+          "verification": {
+            "status": "unknown",
+            "checks": []
+          }
+        },
+        {
+          "id": "fixture-page-15",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-page-trace-15",
+          "title": "TEST ONLY: pending incident",
+          "status": "unknown",
+          "severity": null,
+          "started_at": "2026-11-03T03:15:00+00:00",
+          "updated_at": "2026-11-03T03:15:00+00:00",
+          "diagnosis_source": "unknown",
+          "summary": "",
+          "verification": {
+            "status": "unknown",
+            "checks": []
+          }
+        },
+        {
+          "id": "fixture-page-14",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-page-trace-14",
+          "title": "TEST ONLY: pending incident",
+          "status": "unknown",
+          "severity": null,
+          "started_at": "2026-11-03T03:14:00+00:00",
+          "updated_at": "2026-11-03T03:14:00+00:00",
+          "diagnosis_source": "unknown",
+          "summary": "",
+          "verification": {
+            "status": "unknown",
+            "checks": []
+          }
+        },
+        {
+          "id": "fixture-page-13",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-page-trace-13",
+          "title": "TEST ONLY: pending incident",
+          "status": "unknown",
+          "severity": null,
+          "started_at": "2026-11-03T03:13:00+00:00",
+          "updated_at": "2026-11-03T03:13:00+00:00",
+          "diagnosis_source": "unknown",
+          "summary": "",
+          "verification": {
+            "status": "unknown",
+            "checks": []
+          }
+        },
+        {
+          "id": "fixture-page-12",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-page-trace-12",
+          "title": "TEST ONLY: pending incident",
+          "status": "unknown",
+          "severity": null,
+          "started_at": "2026-11-03T03:12:00+00:00",
+          "updated_at": "2026-11-03T03:12:00+00:00",
+          "diagnosis_source": "unknown",
+          "summary": "",
+          "verification": {
+            "status": "unknown",
+            "checks": []
+          }
+        },
+        {
+          "id": "fixture-page-11",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-page-trace-11",
+          "title": "TEST ONLY: pending incident",
+          "status": "unknown",
+          "severity": null,
+          "started_at": "2026-11-03T03:11:00+00:00",
+          "updated_at": "2026-11-03T03:11:00+00:00",
+          "diagnosis_source": "unknown",
+          "summary": "",
+          "verification": {
+            "status": "unknown",
+            "checks": []
+          }
+        },
+        {
+          "id": "fixture-page-10",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-page-trace-10",
+          "title": "TEST ONLY: pending incident",
+          "status": "unknown",
+          "severity": null,
+          "started_at": "2026-11-03T03:10:00+00:00",
+          "updated_at": "2026-11-03T03:10:00+00:00",
+          "diagnosis_source": "unknown",
+          "summary": "",
+          "verification": {
+            "status": "unknown",
+            "checks": []
+          }
+        },
+        {
+          "id": "fixture-page-9",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-page-trace-9",
+          "title": "TEST ONLY: pending incident",
+          "status": "unknown",
+          "severity": null,
+          "started_at": "2026-11-03T03:09:00+00:00",
+          "updated_at": "2026-11-03T03:09:00+00:00",
+          "diagnosis_source": "unknown",
+          "summary": "",
+          "verification": {
+            "status": "unknown",
+            "checks": []
+          }
+        },
+        {
+          "id": "fixture-page-8",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-page-trace-8",
+          "title": "TEST ONLY: pending incident",
+          "status": "unknown",
+          "severity": null,
+          "started_at": "2026-11-03T03:08:00+00:00",
+          "updated_at": "2026-11-03T03:08:00+00:00",
+          "diagnosis_source": "unknown",
+          "summary": "",
+          "verification": {
+            "status": "unknown",
+            "checks": []
+          }
+        },
+        {
+          "id": "fixture-page-7",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-page-trace-7",
+          "title": "TEST ONLY: pending incident",
+          "status": "unknown",
+          "severity": null,
+          "started_at": "2026-11-03T03:07:00+00:00",
+          "updated_at": "2026-11-03T03:07:00+00:00",
+          "diagnosis_source": "unknown",
+          "summary": "",
+          "verification": {
+            "status": "unknown",
+            "checks": []
+          }
+        },
+        {
+          "id": "fixture-page-6",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-page-trace-6",
+          "title": "TEST ONLY: pending incident",
+          "status": "unknown",
+          "severity": null,
+          "started_at": "2026-11-03T03:06:00+00:00",
+          "updated_at": "2026-11-03T03:06:00+00:00",
+          "diagnosis_source": "unknown",
+          "summary": "",
+          "verification": {
+            "status": "unknown",
+            "checks": []
+          }
+        },
+        {
+          "id": "fixture-page-5",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-page-trace-5",
+          "title": "TEST ONLY: pending incident",
+          "status": "unknown",
+          "severity": null,
+          "started_at": "2026-11-03T03:05:00+00:00",
+          "updated_at": "2026-11-03T03:05:00+00:00",
+          "diagnosis_source": "unknown",
+          "summary": "",
+          "verification": {
+            "status": "unknown",
+            "checks": []
+          }
+        },
+        {
+          "id": "fixture-page-4",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-page-trace-4",
+          "title": "TEST ONLY: pending incident",
+          "status": "unknown",
+          "severity": null,
+          "started_at": "2026-11-03T03:04:00+00:00",
+          "updated_at": "2026-11-03T03:04:00+00:00",
+          "diagnosis_source": "unknown",
+          "summary": "",
+          "verification": {
+            "status": "unknown",
+            "checks": []
+          }
+        },
+        {
+          "id": "fixture-page-3",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-page-trace-3",
+          "title": "TEST ONLY: pending incident",
+          "status": "unknown",
+          "severity": null,
+          "started_at": "2026-11-03T03:03:00+00:00",
+          "updated_at": "2026-11-03T03:03:00+00:00",
+          "diagnosis_source": "unknown",
+          "summary": "",
+          "verification": {
+            "status": "unknown",
+            "checks": []
+          }
+        },
+        {
+          "id": "fixture-page-2",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-page-trace-2",
+          "title": "TEST ONLY: pending incident",
+          "status": "unknown",
+          "severity": null,
+          "started_at": "2026-11-03T03:02:00+00:00",
+          "updated_at": "2026-11-03T03:02:00+00:00",
+          "diagnosis_source": "unknown",
+          "summary": "",
+          "verification": {
+            "status": "unknown",
+            "checks": []
+          }
+        },
+        {
+          "id": "fixture-page-1",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-page-trace-1",
+          "title": "TEST ONLY: pending incident",
+          "status": "unknown",
+          "severity": null,
+          "started_at": "2026-11-03T03:01:00+00:00",
+          "updated_at": "2026-11-03T03:01:00+00:00",
+          "diagnosis_source": "unknown",
+          "summary": "",
+          "verification": {
+            "status": "unknown",
+            "checks": []
+          }
+        },
+        {
+          "id": "fixture-page-0",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-page-trace-0",
+          "title": "TEST ONLY: pending incident",
+          "status": "unknown",
+          "severity": null,
+          "started_at": "2026-11-03T03:00:00+00:00",
+          "updated_at": "2026-11-03T03:00:00+00:00",
+          "diagnosis_source": "unknown",
+          "summary": "",
+          "verification": {
+            "status": "unknown",
+            "checks": []
+          }
+        }
+      ],
+      "total": 22,
+      "limit": 20,
+      "offset": 0,
+      "has_more": true,
+      "since": null,
+      "until": null
+    },
+    "20": {
+      "schema_version": "mobile-v1",
+      "source": "offline_fixture",
+      "generated_at": "2026-11-03T02:00:00+00:00",
+      "a_status": "not_connected",
+      "b_status": "ready",
+      "items": [
+        {
+          "id": "fixture-incident-2",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-trace-2",
+          "title": "TEST ONLY: pending incident",
+          "status": "unknown",
+          "severity": null,
+          "started_at": "2026-11-03T01:00:00+00:00",
+          "updated_at": "2026-11-03T01:00:00+00:00",
+          "diagnosis_source": "unknown",
+          "summary": "",
+          "verification": {
+            "status": "unknown",
+            "checks": []
+          }
+        },
+        {
+          "id": "fixture-incident-1",
+          "target_id": "fixture-target",
+          "trace_id": "fixture-trace-1",
+          "title": "TEST ONLY: PostgreSQL incident",
+          "status": "recovered",
+          "severity": null,
+          "started_at": "2026-11-03T00:00:00+00:00",
+          "updated_at": "2026-11-03T00:00:03+00:00",
+          "diagnosis_source": "rule",
+          "summary": "TEST ONLY: rule diagnosis summary",
+          "verification": {
+            "status": "passed",
+            "checks": [
+              "TEST ONLY: business check passed"
+            ]
+          }
+        }
+      ],
+      "total": 22,
+      "limit": 20,
+      "offset": 20,
+      "has_more": false,
+      "since": null,
+      "until": null
+    },
+    "40": {
+      "schema_version": "mobile-v1",
+      "source": "offline_fixture",
+      "generated_at": "2026-11-03T02:00:00+00:00",
+      "a_status": "not_connected",
+      "b_status": "ready",
+      "items": [],
+      "total": 22,
+      "limit": 20,
+      "offset": 40,
+      "has_more": false,
+      "since": null,
+      "until": null
+    }
+  },
+  "paged_overview": {
+    "schema_version": "mobile-v1",
+    "source": "offline_fixture",
+    "generated_at": "2026-11-03T02:00:00+00:00",
+    "a_status": "not_connected",
+    "b_status": "ready",
+    "total": 22,
+    "counts_by_status": {
+      "observing": 0,
+      "diagnosing": 0,
+      "waiting_human": 0,
+      "executing": 0,
+      "verifying": 0,
+      "recovered": 1,
+      "failed": 0,
+      "unknown": 21
+    },
+    "since": null,
+    "until": null,
+    "statistics_scope": "persisted_workbench_incidents_started_at",
+    "latest_incident_update_at": "2026-11-03T03:19:00+00:00",
+    "target_health": "unknown",
+    "freshness_threshold_seconds": 60,
+    "targets": [],
+    "recent_incidents": [
+      {
+        "id": "fixture-page-19",
+        "target_id": "fixture-target",
+        "trace_id": "fixture-page-trace-19",
+        "title": "TEST ONLY: pending incident",
+        "status": "unknown",
+        "severity": null,
+        "started_at": "2026-11-03T03:19:00+00:00",
+        "updated_at": "2026-11-03T03:19:00+00:00",
+        "diagnosis_source": "unknown",
+        "summary": "",
+        "verification": {
+          "status": "unknown",
+          "checks": []
+        }
+      },
+      {
+        "id": "fixture-page-18",
+        "target_id": "fixture-target",
+        "trace_id": "fixture-page-trace-18",
+        "title": "TEST ONLY: pending incident",
+        "status": "unknown",
+        "severity": null,
+        "started_at": "2026-11-03T03:18:00+00:00",
+        "updated_at": "2026-11-03T03:18:00+00:00",
+        "diagnosis_source": "unknown",
+        "summary": "",
+        "verification": {
+          "status": "unknown",
+          "checks": []
+        }
+      },
+      {
+        "id": "fixture-page-17",
+        "target_id": "fixture-target",
+        "trace_id": "fixture-page-trace-17",
+        "title": "TEST ONLY: pending incident",
+        "status": "unknown",
+        "severity": null,
+        "started_at": "2026-11-03T03:17:00+00:00",
+        "updated_at": "2026-11-03T03:17:00+00:00",
+        "diagnosis_source": "unknown",
+        "summary": "",
+        "verification": {
+          "status": "unknown",
+          "checks": []
+        }
+      },
+      {
+        "id": "fixture-page-16",
+        "target_id": "fixture-target",
+        "trace_id": "fixture-page-trace-16",
+        "title": "TEST ONLY: pending incident",
+        "status": "unknown",
+        "severity": null,
+        "started_at": "2026-11-03T03:16:00+00:00",
+        "updated_at": "2026-11-03T03:16:00+00:00",
+        "diagnosis_source": "unknown",
+        "summary": "",
+        "verification": {
+          "status": "unknown",
+          "checks": []
+        }
+      },
+      {
+        "id": "fixture-page-15",
+        "target_id": "fixture-target",
+        "trace_id": "fixture-page-trace-15",
+        "title": "TEST ONLY: pending incident",
+        "status": "unknown",
+        "severity": null,
+        "started_at": "2026-11-03T03:15:00+00:00",
+        "updated_at": "2026-11-03T03:15:00+00:00",
+        "diagnosis_source": "unknown",
+        "summary": "",
+        "verification": {
+          "status": "unknown",
+          "checks": []
+        }
+      }
+    ],
+    "recent_events": [
+      {
+        "id": "fixture-verify",
+        "sequence": 3,
+        "timestamp": "2026-11-03T00:00:03+00:00",
+        "stage": "verification",
+        "status": "succeeded",
+        "title": "TEST ONLY: business verification",
+        "detail": "TEST ONLY: business verification",
+        "evidence": [
+          "TEST ONLY: contract evidence"
+        ],
+        "incident_id": "fixture-incident-1",
+        "trace_id": "fixture-trace-1"
+      },
+      {
+        "id": "fixture-execute",
+        "sequence": 2,
+        "timestamp": "2026-11-03T00:00:02+00:00",
+        "stage": "recovery_execution",
+        "status": "succeeded",
+        "title": "TEST ONLY: recorded execution",
+        "detail": "TEST ONLY: recorded execution",
+        "evidence": [
+          "TEST ONLY: contract evidence"
+        ],
+        "incident_id": "fixture-incident-1",
+        "trace_id": "fixture-trace-1"
+      },
+      {
+        "id": "fixture-root",
+        "sequence": 1,
+        "timestamp": "2026-11-03T00:00:01+00:00",
+        "stage": "root_cause_analysis",
+        "status": "succeeded",
+        "title": "TEST ONLY: root cause evidence",
+        "detail": "TEST ONLY: root cause evidence",
+        "evidence": [
+          "TEST ONLY: contract evidence"
+        ],
+        "incident_id": "fixture-incident-1",
+        "trace_id": "fixture-trace-1"
+      },
+      {
+        "id": "fixture-observe",
+        "sequence": 0,
+        "timestamp": "2026-11-03T00:00:00+00:00",
+        "stage": "observe",
+        "status": "succeeded",
+        "title": "TEST ONLY: observation",
+        "detail": "TEST ONLY: observation",
+        "evidence": [
+          "TEST ONLY: contract evidence"
+        ],
+        "incident_id": "fixture-incident-1",
+        "trace_id": "fixture-trace-1"
+      }
+    ]
+  }
+}

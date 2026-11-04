@@ -21,6 +21,23 @@ from .evidence import evidence_page
 DEFAULT_DB = Path(__file__).resolve().parents[1] / "runtime" / "dashboard-api.sqlite3"
 
 
+def create_mobile_read_app(store: Store | None = None) -> FastAPI:
+    """原8020入口的明确只读模式；无宿主worker、导入、模型、控制或DDL。"""
+    from .mobile import install_mobile_routes
+    from .workbench import read_mobile_snapshot
+    store = store or Store(os.getenv('REOPS_C_DB_PATH', str(DEFAULT_DB)), read_only=True)
+    if not store.read_only:
+        raise ValueError('mobile_mode_requires_read_only_store')
+    app = FastAPI(title='ReOps mobile read API')
+    install_mobile_routes(app, read_mobile_snapshot, store)
+
+    @app.get('/api/v1/health')
+    def health():
+        return {'status': 'ok', 'component': 'dashboard_api', 'mode': 'mobile_read_only'}
+
+    return app
+
+
 def _snapshot_frame(run, events, feed_state: str):
     payload = {"run": run.to_dict(), "events": [event.to_dict() for event in events],
                "feed_state": feed_state}
@@ -107,7 +124,7 @@ def create_app(store: Store | None = None, probe: SystemProbe | None = None,
         web_control = WebControl(store.path, enabled=enabled, model_store=model_store)
     install_web_routes(app, web_control)
     from .workbench import install_workbench_routes
-    install_workbench_routes(app)
+    install_workbench_routes(app, store)
     install_monitor_routes(app, workbench_control)
     app.state.workbench_control = workbench_control
 
